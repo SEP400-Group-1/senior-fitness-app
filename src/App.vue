@@ -1,39 +1,14 @@
 <script setup></script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    simon was here
-    no way bro
-  </p>
+  <header>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Hello</a></li>
+      <li><a href="#">Yo</a></li>
+    </ul>
+  </header>
 </template>
 
 <style scoped></style>
