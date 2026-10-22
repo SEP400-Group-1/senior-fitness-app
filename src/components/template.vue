@@ -1,4 +1,4 @@
-<script stup>
+<script setup>
 
 </script>
 

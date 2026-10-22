@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+
+import TrainingView from "@/components/TrainingView.vue";
+
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <TrainingView />
 </template>
 
 <style scoped></style>
