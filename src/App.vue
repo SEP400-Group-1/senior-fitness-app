@@ -1,14 +1,9 @@
 <script setup></script>
 
 <template>
-  <header>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Hello</a></li>
-      <li><a href="#">Yo</a></li>
-    </ul>
-  </header>
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
 </template>
 
 <style scoped></style>
