@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import Form from './components/Form.vue'
+import Start_workout_page from './components/Start_workout_page.vue'
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <Start_workout_page />
+
 </template>
 
 <style scoped></style>
