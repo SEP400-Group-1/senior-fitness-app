@@ -1,7 +1,10 @@
-<script setup></script>
+<script setup>
+import MobileNav from './components/MobileNav.vue';
+
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <MobileNav></MobileNav>
 </template>
 
 <style scoped></style>
