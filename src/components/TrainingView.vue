@@ -18,14 +18,12 @@ const exerciseToDo = ['Tryck dina händer mot armstöden och lyft din kropp någ
 
         <!-- wrapper: relative so the overlay can be positioned inside it -->
         <div class="relative max-h-[25vh]">
-          <img class="rounded-4xl max-h-[25vh]" src="@/assets/images/test_video.png" alt="video">
+          <img class="rounded-4xl max-h-[25vh]" src="@/assets/images/screenshot.png" alt="video">
 
           <div class="absolute inset-0 flex items-center justify-center rounded-4xl bg-black/50 ">
-            <button
-                type="button"
-                aria-label="Pause"
+            <button aria-label="Pause"
                 class="flex size-16 items-center justify-center rounded-full bg-white/80 hover:bg-white transition"
-            >
+                type="button">
               <svg class="size-8 text-black" viewBox="0 0 24 24" fill="currentColor">
                 <rect x="6" y="5" width="4" height="14" rx="1" />
                 <rect x="14" y="5" width="4" height="14" rx="1" />
