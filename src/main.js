@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import router from './router'
 import App from './App.vue'
 import './assets/main.css'
 
@@ -10,5 +11,6 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 library.add(faUser, faHouse, faGithub, faDumbbell)
 createApp(App)
+  .use(router)
   .component('font-awesome-icon', FontAwesomeIcon)
   .mount('#app')

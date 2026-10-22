@@ -1,28 +1,30 @@
 <script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+function isActive(...validRoutes) {
+  return validRoutes.includes(route.name)
+}
 </script>
 
-
 <template>
-  <div class="mobile-nav">
-    <div class="mobile-nav-item" id="active">
-      <a href="#">
-        <font-awesome-icon icon="fa-solid fa-home" size="xl" />
-        <span class="mobile-nav-item-label">Hem</span>
-      </a>
-    </div>
-    <div class="mobile-nav-item active">
-      <a href="#">
-        <font-awesome-icon icon="fa-solid fa-dumbbell" size="xl" />
-        <span class="mobile-nav-item-label">Program</span>
-      </a>
-    </div>
-    <div class="mobile-nav-item active">
-      <a href="#">
-        <font-awesome-icon icon="fa-solid fa-user" size="xl" />
-        <span class="mobile-nav-item-label">Profil</span>
-      </a>
-    </div>
-  </div>
+  <nav class="mobile-nav">
+    <RouterLink to="/" class="mobile-nav-item" :class="{ active: isActive('home') }">
+      <font-awesome-icon icon="fa-solid fa-home" size="xl" fixed-width />
+      <span class="mobile-nav-item-label">Hem</span>
+    </RouterLink>
+
+    <RouterLink to="/programs" class="mobile-nav-item" :class="{ active: isActive('programs') }">
+      <font-awesome-icon icon="fa-solid fa-dumbbell" size="xl" fixed-width />
+      <span class="mobile-nav-item-label">Program</span>
+    </RouterLink>
+
+    <RouterLink to="/profile" class="mobile-nav-item" :class="{ active: isActive('profile') }">
+      <font-awesome-icon icon="fa-solid fa-user" size="xl" fixed-width />
+      <span class="mobile-nav-item-label">Profil</span>
+    </RouterLink>
+  </nav>
 </template>
 
 <style scoped>
@@ -49,10 +51,12 @@
 
 .mobile-nav-item {
   flex: 1;
+  height: 100%;
   text-align: center;
   padding: 6px;
   font-family: "Zen Maru Gothic", sans-serif;
   font-size: 16px;
+  border-radius: 12px;
 }
 
 .mobile-nav-item a {
@@ -63,9 +67,8 @@
   display: block;
 }
 
-#active {
+.active {
   background-color: #F2A900;
-  border-radius: 12px
 }
 
 </style>
