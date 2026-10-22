@@ -8,7 +8,7 @@ import MobileNav from './components/MobileNav.vue'
 
 <template>
   <TrainingView />
-  <MobileNav></MobileNav>
+  <!-- <MobileNav></MobileNav> -->
   <RouterView></RouterView>
 </template>
 
