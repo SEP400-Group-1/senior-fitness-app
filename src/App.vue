@@ -1,17 +1,12 @@
 <script setup>
-import MobileNav from './components/MobileNav.vue';
-import NotFoundView from './views/NotFoundView.vue';
+import MobileNav from './components/MobileNav.vue'
 
-import { RouterView } from 'vue-router';
-
-
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
   <MobileNav></MobileNav>
   <RouterView></RouterView>
-
-
 </template>
 
 <style scoped></style>

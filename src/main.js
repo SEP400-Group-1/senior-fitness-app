@@ -10,7 +10,4 @@ import { faUser, faHouse, faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 library.add(faUser, faHouse, faGithub, faDumbbell)
-createApp(App)
-  .use(router)
-  .component('font-awesome-icon', FontAwesomeIcon)
-  .mount('#app')
+createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

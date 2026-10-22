@@ -28,7 +28,6 @@ function isActive(...validRoutes) {
 </template>
 
 <style scoped>
-
 .mobile-nav {
   width: 100vw;
   display: flex;
@@ -54,7 +53,7 @@ function isActive(...validRoutes) {
   height: 100%;
   text-align: center;
   padding: 6px;
-  font-family: "Zen Maru Gothic", sans-serif;
+  font-family: 'Zen Maru Gothic', sans-serif;
   font-size: 16px;
   border-radius: 12px;
 }
@@ -68,7 +67,6 @@ function isActive(...validRoutes) {
 }
 
 .active {
-  background-color: #F2A900;
+  background-color: #f2a900;
 }
-
 </style>
