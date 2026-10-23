@@ -1,12 +1,25 @@
 <script setup>
-import Form from './components/Form.vue'
-import Start_workout_page from './components/Start_workout_page.vue'
-import Login_form from './components/Login_form.vue'
+import MobileNav from './components/MobileNav.vue'
+import DesktopNav from './components/DesktopNav.vue'
+
+import { RouterView } from 'vue-router'
+import { ref } from 'vue'
+
+const deviceType = ref(true)
 </script>
 
 <template>
-  <Login_form />
-
+  <label>
+    Desktop:
+    <input type="radio" v-model="deviceType" checked value="1" />
+  </label>
+  <label>
+    Mobile:
+    <input type="radio" v-model="deviceType" value="2" />
+  </label>
+  <DesktopNav v-if="deviceType == 1"></DesktopNav>
+  <MobileNav v-else></MobileNav>
+  <RouterView></RouterView>
 </template>
 
 <style scoped></style>
