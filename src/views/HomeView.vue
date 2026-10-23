@@ -1,7 +1,8 @@
-<script stup></script>
-
+<script setup></script>
 <template>
-  <div></div>
+  <div>
+    <h2>Home</h2>
+  </div>
 </template>
 
 <style scoped></style>
