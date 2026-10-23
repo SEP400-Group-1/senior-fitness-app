@@ -1,16 +1,13 @@
 <script setup>
-
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
 const sampleLogin = () => {
-  console.log("click")
+  console.log('click')
   router.push('/app/home')
 }
-
 </script>
-
 
 <template>
   <div class="w-full max-w-xs m-auto">
