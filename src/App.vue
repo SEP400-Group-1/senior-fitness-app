@@ -1,12 +1,4 @@
 <script setup>
-<<<<<<< HEAD
-import LoginForm from './components/LoginForm.vue'
-</script>
-
-<template>
-  <LoginForm/>
-
-=======
 import MobileNav from './components/MobileNav.vue'
 import DesktopNav from './components/DesktopNav.vue'
 
@@ -28,7 +20,6 @@ const deviceType = ref(true)
   <DesktopNav v-if="deviceType == 1"></DesktopNav>
   <MobileNav v-else></MobileNav>
   <RouterView></RouterView>
->>>>>>> 8a9d2f679eaa0cb7dcfcb0c66bace2832cc1eb63
 </template>
 
 <style scoped></style>
