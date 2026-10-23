@@ -1,4 +1,13 @@
-<script stup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const sampleLogin = () => {
+  console.log('click')
+  router.push('/app/home')
+}
+</script>
 
 <template>
   <div class="w-full max-w-xs m-auto">
@@ -32,12 +41,14 @@
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
+          @click="sampleLogin"
         >
           Sign In
         </button>
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
+          @click="sampleLogin"
         >
           Sign Up
         </button>
