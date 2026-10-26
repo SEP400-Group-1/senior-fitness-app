@@ -61,17 +61,17 @@ async function togglePlay() {
           </button>
         </div>
       </div>
-      <h1 class="text-5xl text-black p-3 pb-6">
-        {{exerciseTitle}}
+      <h1 class="px-0 pb-4 text-4xl font-bold text-black sm:text-5xl">
+        {{ exerciseTitle }}
       </h1>
-      <!-- Training todos -->
-      <div class="flex-1 w-full">
-        <ol class="space-y-6">
-          <li v-for="(todo, i) in exerciseToDo" :key="todo" class="flex items-start gap-4">
-          <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-slate-900 text-2xl font-bold text-white">
-            {{ i + 1 }}
-          </span>
-            <span class="text-3xl text-black leading-snug">{{ todo }}</span>
+
+      <div class="flex-1 w-full pb-48">
+        <ol class="space-y-5">
+          <li v-for="(todo, i) in exerciseToDo" :key="todo" class="flex items-start gap-3">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xl font-bold text-white sm:size-12 sm:text-2xl">
+              {{ i + 1 }}
+            </span>
+            <span class="text-2xl leading-snug text-black sm:text-3xl">{{ todo }}</span>
           </li>
         </ol>
       </div>
