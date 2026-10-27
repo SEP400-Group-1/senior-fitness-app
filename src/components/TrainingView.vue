@@ -86,8 +86,8 @@ async function togglePlay() {
         </div>
       </div>
 
-      <button type="button" class="shrink-0 rounded-xl bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
-        Avsluta Träning
+      <button type="button" class="shrink-0 rounded-full bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
+        X
       </button>
     </header>
 
@@ -109,7 +109,7 @@ async function togglePlay() {
         </div>
       </div>
 
-      <div class="w-full bg-orange-100 p-4 border-1 border-black rounded-3xl">
+      <div class="w-full bg-orange-100 p-4 border-1 border-black rounded-2xl">
         <h1 class="text-center pb-1 text-3xl font-bold text-black sm:text-5xl">
           {{ Trainings[completedWorkouts][0] }}
         </h1>
