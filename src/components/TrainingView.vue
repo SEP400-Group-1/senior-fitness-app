@@ -2,11 +2,39 @@
 
 import {nextTick, ref} from 'vue'
 
-const numberOfWorkouts = 10;
-const completedWorkouts = 4;
+const numberOfWorkouts = 4;
+const completedWorkouts = 1;
 
-const exerciseToDo = ['Tryck dina händer mot armstöden och lyft din kropp några centimeter upp från stolen','Håll positionen i 1-2 sekunder', 'Sänk dig långsamt tillbaka till utgångsskillingen', 'Andas ut när du lyfter, andas in när du sänker']
-const exerciseTitle = "Stols Träning"
+const Trainings = [
+  ["Stols Träning", [
+    'Tryck dina händer mot armstöden och lyft din kropp några centimeter upp från stolen',
+    'Håll positionen i 1-2 sekunder',
+    'Sänk dig långsamt tillbaka till utgångsställningen',
+    'Andas ut när du lyfter, andas in när du sänker'
+  ]],
+  ["Sittande knälyft", [
+    'Sitt upprätt längst fram på stolen med fötterna i golvet och ryggen rak',
+    'Lyft ett knä långsamt mot bröstet utan att luta dig bakåt',
+    'Håll positionen i 1-2 sekunder',
+    'Sänk foten långsamt tillbaka till golvet och byt ben',
+    'Andas ut när du lyfter, andas in när du sänker'
+  ]],
+  ["Axelrullningar", [
+    'Sitt upprätt med armarna avslappnade längs sidorna',
+    'Dra axlarna uppåt mot öronen',
+    'Rulla axlarna långsamt bakåt och nedåt i en stor cirkel',
+    'Upprepa 8-10 gånger och byt sedan riktning och rulla framåt',
+    'Andas lugnt och jämnt under hela övningen'
+  ]],
+  ["Fotledscirklar", [
+    'Sitt bekvämt med ryggen mot ryggstödet och lyft ena foten en bit från golvet',
+    'Rita långsamt cirklar med foten, 8-10 varv medsols',
+    'Byt riktning och gör 8-10 varv motsols',
+    'Sätt ner foten och upprepa med andra foten',
+    'Håll benet avslappnat och rör bara i fotleden'
+  ]]
+];
+
 const isPaused = ref(true)
 const topView = ref(null)
 const videoEl = ref(null)
@@ -34,7 +62,7 @@ async function togglePlay() {
       <header class="flex items-center gap-2">
         <div class="flex-1">
           <p class="mb-1 text-lg font-semibold text-black">
-            Övning {{ completedWorkouts }} av {{ numberOfWorkouts }}
+            Övning {{ completedWorkouts + 1 }} av {{ numberOfWorkouts }}
           </p>
           <div class="flex gap-0.5" role="progressbar">
             <div v-for="n in numberOfWorkouts" :key="n" class="h-5 flex-1 rounded-full border-2" :class="n <= completedWorkouts ? 'border-green-800 bg-green-600' : 'border-slate-400 bg-slate-200'"/>
@@ -62,12 +90,12 @@ async function togglePlay() {
         </div>
       </div>
       <h1 class="px-0 pb-4 text-4xl font-bold text-black sm:text-5xl">
-        {{ exerciseTitle }}
+        {{ Trainings[completedWorkouts][0] }}
       </h1>
 
       <div class="flex-1 w-full pb-48">
         <ol class="space-y-5">
-          <li v-for="(todo, i) in exerciseToDo" :key="todo" class="flex items-start gap-3">
+          <li v-for="(todo, i) in Trainings[completedWorkouts][1]" :key="todo" class="flex items-start gap-3">
             <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xl font-bold text-white sm:size-12 sm:text-2xl">
               {{ i + 1 }}
             </span>
