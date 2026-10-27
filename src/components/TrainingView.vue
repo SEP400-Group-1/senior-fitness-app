@@ -2,9 +2,6 @@
 
 import {nextTick, ref} from 'vue'
 
-const numberOfWorkouts = 4;
-const completedWorkouts = 1;
-
 const Trainings = [
   ["Stols Träning", [
     'Tryck dina händer mot armstöden och lyft din kropp några centimeter upp från stolen',
@@ -35,11 +32,33 @@ const Trainings = [
   ]]
 ];
 
+const numberOfWorkouts = Trainings.length;
+const completedWorkouts = ref(0);
+
+const increase = () => {
+  if (completedWorkouts.value +1 < numberOfWorkouts) {
+    completedWorkouts.value++;
+    scrollToTop();
+  }
+};
+
+const decrease = () => {
+  if (completedWorkouts.value > 0) {
+    completedWorkouts.value--;
+    scrollToTop();
+  }
+};
+
 const isPaused = ref(true)
-const topView = ref(null)
+const scrollArea = ref(null)
 const videoEl = ref(null)
 
 const videoLink = "https://www.w3schools.com/tags/mov_bbb.mp4"
+
+async function scrollToTop() {
+  await nextTick()
+  scrollArea.value?.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 async function togglePlay() {
   const video = videoEl.value
@@ -51,32 +70,32 @@ async function togglePlay() {
     video.pause()
   }
 
-  await nextTick()
-  topView.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  await scrollToTop()
 }
 </script>
 
 <template>
-  <div ref="topView" tabindex="-1" class="flex min-h-screen items-center justify-center ml">
-    <div class="relative min-h-screen min-w-full bg-slate-100 text-white border-2 p-5 sm:p-8 md:px-[5vw] lg:px-[5vw] flex flex-col">
-      <header class="flex items-center gap-2">
-        <div class="flex-1">
-          <p class="mb-1 text-lg font-semibold text-black">
-            Övning {{ completedWorkouts + 1 }} av {{ numberOfWorkouts }}
-          </p>
-          <div class="flex gap-0.5" role="progressbar">
-            <div v-for="n in numberOfWorkouts" :key="n" class="h-5 flex-1 rounded-full border-2" :class="n <= completedWorkouts ? 'border-green-800 bg-green-600' : 'border-slate-400 bg-slate-200'"/>
-          </div>
+  <div class="fixed inset-0 flex flex-col bg-linear-to-t from-orange-400 to-orange-200 text-white px-5 pt-5 pb-5 sm:px-8 md:px-[5vw] lg:px-[5vw]">
+    <header class="shrink-0 flex items-center gap-2 p-1">
+      <div class="flex-1">
+        <p class="mb-1 text-lg font-semibold text-black">
+          Övning {{ completedWorkouts + 1 }} av {{ numberOfWorkouts }}
+        </p>
+        <div class="flex gap-0.5" role="progressbar">
+          <div v-for="n in numberOfWorkouts" :key="n" class="h-5 flex-1 rounded-full border-2" :class="n <= completedWorkouts ? 'border-green-800 bg-green-600' : 'border-slate-400 bg-slate-200'"/>
         </div>
+      </div>
 
-        <button type="button" class="shrink-0 rounded-full bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
-          Avsluta Träning
-        </button>
-      </header>
+      <button type="button" class="shrink-0 rounded-xl bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
+        Avsluta Träning
+      </button>
+    </header>
 
+    <!-- Scrollable middle: video + card -->
+    <div ref="scrollArea" class="min-h-0 flex-1 overflow-y-auto overscroll-contain">
 
       <!-- Video wrapper -->
-      <div class="relative mb-6 mt-6 rounded-2xl transition-all duration-300" :class="isPaused ? 'h-[20vh]' : 'h-[60vh]'" @click="togglePlay">
+      <div class="relative mb-6 mt-6 rounded-2xl transition-all duration-300" :class="isPaused ? 'h-[15dvh]' : 'h-[70dvh]'" @click="togglePlay">
         <video ref="videoEl" playsinline muted loop class="h-full w-full object-cover rounded-3xl" @play="isPaused = false" @pause="isPaused = true">
           <source :src="videoLink" type="video/mp4" />
         </video>
@@ -89,36 +108,40 @@ async function togglePlay() {
           </button>
         </div>
       </div>
-      <h1 class="px-0 pb-4 text-4xl font-bold text-black sm:text-5xl">
-        {{ Trainings[completedWorkouts][0] }}
-      </h1>
 
-      <div class="flex-1 w-full pb-48">
+      <div class="w-full bg-orange-100 p-4 border-1 border-black rounded-3xl">
+        <h1 class="text-center pb-1 text-3xl font-bold text-black sm:text-5xl">
+          {{ Trainings[completedWorkouts][0] }}
+        </h1>
+        <hr class="text-2xl text-black pb-2">
         <ol class="space-y-5">
           <li v-for="(todo, i) in Trainings[completedWorkouts][1]" :key="todo" class="flex items-start gap-3">
-            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xl font-bold text-white sm:size-12 sm:text-2xl">
+            <span class="flex size-7 shrink-0 items-center justify-center rounded-full  text-xl  text-black font-bold sm:size-12 sm:text-2xl">
               {{ i + 1 }}
             </span>
             <span class="text-2xl leading-snug text-black sm:text-3xl">{{ todo }}</span>
           </li>
         </ol>
       </div>
-
-      <!-- Training buttons -->
-      <footer class="sticky bottom-0 -mx-5 rounded-5xl bg-none px-5 pb-4 pt-3 ">
-        <button type="button" class="mb-3 w-full rounded-full border-2 border-blue-950 bg-blue-800 py-4 text-2xl font-semibold text-white transition hover:bg-blue-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black"> Ta En Paus
-        </button>
-
-        <div class="flex gap-5">
-          <button type="button" class="flex-1 rounded-full border-2 border-slate-800 bg-white py-3 text-lg font-semibold text-slate-900 transition hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">← Föregående
-          </button>
-          <button type="button" class="flex-1 rounded-full border-2 border-green-950 bg-green-800 py-3 text-lg font-semibold text-white transition hover:bg-green-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">Nästa övning →
-          </button>
-        </div>
-      </footer>
     </div>
+
+    <!-- Training buttons -->
+    <footer class="shrink-0 pt-3">
+      <button type="button" class="mb-3 w-full rounded-xl border-2 border-blue-950 bg-blue-800 py-3 text-xl font-semibold text-white transition hover:bg-blue-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black" > Ta En Paus
+      </button>
+      <div class="flex gap-5">
+        <button type="button" class="flex-1 rounded-xl border-2 border-slate-800 bg-white py-3 text-lg font-semibold text-slate-900 transition hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400" @click="decrease" :disabled="completedWorkouts <= 0">← Föregående
+        </button>
+        <button type="button" class="flex-1 rounded-xl border-2 border-green-950 bg-green-800 py-3 text-lg font-semibold text-white transition hover:bg-green-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black" @click="increase">Nästa övning →
+        </button>
+      </div>
+    </footer>
   </div>
 </template>
 
 <style scoped>
+html, body {
+  min-height: 100dvh;
+  background: #fb923c; /* orange-400 */
+}
 </style>
