@@ -14,4 +14,11 @@ import MobileNav from './components/MobileNav.vue'
   <RouterView></RouterView>
 </template>
 
-<style scoped></style>
+<style scoped>
+video {
+  aspect-ratio: 9 / 16;
+  height: 540px;
+  width: auto;
+  object-fit: cover;
+}
+</style>
