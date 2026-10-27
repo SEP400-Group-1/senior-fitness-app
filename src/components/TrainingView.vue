@@ -86,8 +86,8 @@ async function togglePlay() {
         </div>
       </div>
 
-      <button type="button" class="shrink-0 rounded-full bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
-        X
+      <button type="button" class="shrink-0 rounded-xl bg-red-700 px-6 py-3 text-xl font-semibold text-white transition hover:bg-red-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black">
+        Avsluta
       </button>
     </header>
 
