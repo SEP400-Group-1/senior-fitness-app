@@ -35,10 +35,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-
   const auth = useAuthStore()
 
-  if(!auth.ready) {
+  if (!auth.ready) {
     await supabase.auth.getSession()
   }
 

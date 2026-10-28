@@ -1,23 +1,22 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import {reactive} from 'vue'
+import { reactive } from 'vue'
 
 const auth = useAuthStore()
 
 const router = useRouter()
 
 const form = reactive({
-  email: "",
-  password: "",
-
+  email: '',
+  password: '',
 })
 
 const handleLogin = async () => {
   try {
-    const {error} = await auth.signIn(form.email, form.password)
+    const { error } = await auth.signIn(form.email, form.password)
     router.push('/app/home')
-    if(error) {
+    if (error) {
       alert(error.message)
     }
   } catch (error) {
@@ -28,9 +27,9 @@ const handleLogin = async () => {
 
 const handleRegister = async () => {
   try {
-    const {error} = await auth.signUp(form.email, form.password)
+    const { error } = await auth.signUp(form.email, form.password)
     router.push('/app/home')
-    if(error) {
+    if (error) {
       alert(error.message)
     }
   } catch (error) {
@@ -38,7 +37,6 @@ const handleRegister = async () => {
   }
   console.log(auth.user)
 }
-
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup>
 import DesktopNavItem from './DesktopNavItem.vue'
-import { useAuthStore } from '@/stores/auth';
-import {useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -9,9 +9,7 @@ const auth = useAuthStore()
 const handleLogOut = async () => {
   await auth.signOut()
   router.push('/')
-
 }
-
 </script>
 
 <template>
