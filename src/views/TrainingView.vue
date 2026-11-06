@@ -3,35 +3,87 @@ import {computed, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
 
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
 
+// [name, steps, goal, extra]
+// goal: { type: 'time', seconds, autostart? } or { type: 'reps', reps, perSide? }
 const Trainings = [
-  ["Stols Träning", [
-    'Tryck dina händer mot armstöden och lyft din kropp några centimeter upp från stolen',
-    'Håll positionen i 1-2 sekunder',
-    'Sänk dig långsamt tillbaka till utgångsställningen',
-    'Andas ut när du lyfter, andas in när du sänker'
-  ]],
-  ["Sittande knälyft", [
-    'Sitt upprätt längst fram på stolen med fötterna i golvet och ryggen rak',
-    'Lyft ett knä långsamt mot bröstet utan att luta dig bakåt',
-    'Håll positionen i 1-2 sekunder',
-    'Sänk foten långsamt tillbaka till golvet och byt ben',
-    'Andas ut när du lyfter, andas in när du sänker'
-  ]],
-  ["Axelrullningar", [
-    'Sitt upprätt med armarna avslappnade längs sidorna',
-    'Dra axlarna uppåt mot öronen',
-    'Rulla axlarna långsamt bakåt och nedåt i en stor cirkel',
-    'Upprepa 8-10 gånger och byt sedan riktning och rulla framåt',
-    'Andas lugnt och jämnt under hela övningen'
-  ]],
-  ["Fotledscirklar", [
-    'Sitt bekvämt med ryggen mot ryggstödet och lyft ena foten en bit från golvet',
-    'Rita långsamt cirklar med foten, 8-10 varv medsols',
-    'Byt riktning och gör 8-10 varv motsols',
-    'Sätt ner foten och upprepa med andra foten',
-    'Håll benet avslappnat och rör bara i fotleden'
-  ]]
+  ["Sittande knästräck", [
+    'Sträck ett knä och sänk långsamt.',
+    'Håll låret mot sitsen och ryggen upprätt.'
+  ], { type: 'reps', reps: '8–12', perSide: true },
+    { id: 'SI01', category: 'Sittande styrka', easier: 'Kortare rörelse', harder: 'Lätt fotledsvikt' }],
+
+  ["Sittande hällyft", [
+    'Lyft hälarna medan tårna är kvar i golvet.',
+    'Pressa jämnt genom framfoten.'
+  ], { type: 'reps', reps: '10–15' },
+    { id: 'SI02', category: 'Sittande styrka', easier: 'En fot i taget', harder: 'Fler repetitioner' }],
+
+  ["Sittande tålyft", [
+    'Lyft framfötterna med hälarna i golvet.',
+    'Låt inte knäna falla in.'
+  ], { type: 'reps', reps: '10–15' },
+    { id: 'SI03', category: 'Sittande styrka', easier: 'Mindre lyft', harder: 'Långsammare tempo' }],
+
+  ["Sittande marsch", [
+    'Lyft växelvis ett knä.',
+    'Sitt stabilt utan att gunga bakåt.'
+  ], { type: 'time', seconds: 30 },
+    { id: 'SI04', category: 'Sittande styrka', easier: 'Lägre knälyft', harder: 'Längre arbetsintervall' }],
+
+  ["Sittande ben ut åt sidan", [
+    'För knät lätt utåt och tillbaka.',
+    'Bäcken och överkropp är stilla.'
+  ], { type: 'reps', reps: '8–12', perSide: true },
+    { id: 'SI05', category: 'Sittande styrka', easier: 'Mindre rörelse', harder: 'Lätt band ovanför knäna' }],
+
+  ["Sittande bicepscurl", [
+    'Böj armbågarna och sänk kontrollerat.',
+    'Håll armbågarna nära kroppen.'
+  ], { type: 'reps', reps: '8–12' },
+    { id: 'SI06', category: 'Sittande styrka', easier: 'Utan vikt', harder: 'Lätta hantlar' }],
+
+  ["Sittande skulderbladsdrag", [
+    'För skulderbladen lätt bakåt och släpp.',
+    'Höj inte axlarna mot öronen.'
+  ], { type: 'reps', reps: '8–12' },
+    { id: 'SI07', category: 'Sittande styrka', easier: 'Mindre rörelse', harder: 'Lätt träningsband' }],
+
+  ["Sittande bröstpress med band", [
+    'Pressa händerna framåt och återgå.',
+    'Arbeta i smärtfri axelbana.'
+  ], { type: 'reps', reps: '8–12' },
+    { id: 'SI08', category: 'Sittande styrka', easier: 'Utan band', harder: 'Något fastare band' }],
+
+  ["Uppresning från stol", [
+    'Res dig upp från stabil stol och sätt dig kontrollerat.',
+    'Fötter i golvet, stå stadigt före nästa repetition.'
+  ], { type: 'reps', reps: '6–12' },
+    { id: 'ST01', category: 'Stående styrka', easier: 'Använd armstöd/högre sits', harder: 'Lägre stol eller lätt vikt' }],
+
+  ["Knäböj till stol", [
+    'Böj höft och knän mot stolen; res dig igen.',
+    'Ha stolen bakom som säkerhetsstopp.'
+  ], { type: 'reps', reps: '6–12' },
+    { id: 'ST02', category: 'Stående styrka', easier: 'Liten böjning med stöd', harder: 'Större rörelse inom kontroll' }],
+
+  ["Armhävning mot vägg", [
+    'Böj armbågar mot väggen och pressa tillbaka.',
+    'Håll kroppen rak och händer i axelhöjd.'
+  ], { type: 'reps', reps: '8–12' },
+    { id: 'ST03', category: 'Stående styrka', easier: 'Stå närmare väggen', harder: 'Stå längre bort' }],
+
+  ["Stående rodd med band", [
+    'Dra armbågar bakåt och återgå långsamt.',
+    'Förankra bandet säkert; axlar sänkta.'
+  ], { type: 'reps', reps: '8–12' },
+    { id: 'ST04', category: 'Stående styrka', easier: 'Lättare band', harder: 'Hårdare band' }],
 ];
+
+const goal = computed(() => Trainings[completedWorkouts.value][2])
+const extra = computed(() => Trainings[completedWorkouts.value][3])
+const isTimed = computed(() => goal.value.type === 'time')
+const isLast = computed(() => completedWorkouts.value + 1 >= numberOfWorkouts)
+const repsLabel = computed(() => goal.value.perSide ? 'gånger per sida' : 'gånger')
 
 const numberOfWorkouts = Trainings.length;
 const completedWorkouts = ref(0);
@@ -53,24 +105,25 @@ const decrease = () => {
 };
 
 // ---------- Timer ----------
-const exerciseSeconds = 60
-const timeLeft = ref(exerciseSeconds)
+const exerciseSeconds = computed(() => goal.value.seconds ?? 30)
+const timeLeft = ref(exerciseSeconds.value)
 const timerState = ref('idle') // 'idle' | 'running' | 'paused' | 'done'
 let intervalId = null
 
 const ringLength = 2 * Math.PI * 44
-const ringOffset = computed(() => ringLength * (1 - timeLeft.value / exerciseSeconds))
+const ringOffset = computed(() => ringLength * (1 - timeLeft.value / exerciseSeconds.value))
 
 const timeText = computed(() => {
-  const m = Math.floor(timeLeft.value / 60)
-  const s = String(timeLeft.value % 60).padStart(2, '0')
+  const t = Math.max(timeLeft.value, 0)
+  const m = Math.floor(t / 60)
+  const s = String(t % 60).padStart(2, '0')
   return `${m}:${s}`
 })
 
 const timerButtonText = computed(() => {
   if (timerState.value === 'running') return 'Ta en paus'
-  if (timerState.value === 'paused') return 'Fortsätt'
-  if (timerState.value === 'done') return 'Starta om'
+  if (timerState.value === 'paused') return 'Fortsätt med Passet'
+  if (timerState.value === 'done') return 'Gå till nästa övning'
   return 'Starta Passet!'
 })
 
@@ -92,34 +145,41 @@ function stopInterval() {
 }
 
 function startTimer() {
-  if (timerState.value === 'done') timeLeft.value = exerciseSeconds
+  if (timerState.value === 'done') timeLeft.value = exerciseSeconds.value
   timerState.value = 'running'
   stopInterval()
   intervalId = setInterval(() => {
     timeLeft.value--
-    if (timeLeft.value <= 0) {
+    if (timeLeft.value <= -1) { // extra second at 0:00
       timeLeft.value = 0
       stopInterval()
       timerState.value = 'done'
       navigator.vibrate?.(300)
+
+      if (isLast.value) {
+        // showEndScreen()
+      } else {
+        increase()
+        if (isTimed.value) startTimer()
+      }
     }
   }, 1000)
 }
 
+function resetTimer() {
+  stopInterval()
+  timeLeft.value = exerciseSeconds.value
+  timerState.value = 'idle'
+}
 function pauseTimer() {
   stopInterval()
   timerState.value = 'paused'
 }
 
 function toggleTimer() {
-  if (timerState.value === 'running') pauseTimer()
+  if (timerState.value === 'running')
+    pauseTimer()
   else startTimer()
-}
-
-function resetTimer() {
-  stopInterval()
-  timeLeft.value = exerciseSeconds
-  timerState.value = 'idle'
 }
 // ---------------------------
 
@@ -150,7 +210,6 @@ onBeforeUnmount(() => {
   stopInterval()
   window.removeEventListener('keydown', onKeydown)
 })
-// ---------------------------
 
 const scrollArea = ref(null)
 
@@ -182,7 +241,7 @@ async function scrollToTop() {
 
         <div class="flex shrink-0 flex-row items-center gap-3 rounded-full bg-white py-2 pl-2 pr-5 shadow-md ring-1 ring-stone-900/5">
           <!-- Timer -->
-          <div class="relative size-14 shrink-0">
+          <div v-if="isTimed" class="relative size-14 shrink-0">
             <svg class="size-14 -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" class="stroke-orange-100" />
               <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" stroke-linecap="round" :stroke-dasharray="ringLength" :stroke-dashoffset="ringOffset" class="transition-[stroke-dashoffset] duration-1000 ease-linear" :class="timerState === 'done' ? 'stroke-green-600' : 'stroke-orange-600'" />
@@ -192,12 +251,16 @@ async function scrollToTop() {
             </span>
           </div>
 
-          <div class="flex flex-row items-center gap-3">
+          <div v-if="isTimed" class="flex flex-row items-center gap-3">
             <span class="sr-only">Tid kvar</span>
             <p class="text-lg font-bold leading-tight" :class="timerState === 'done' ? 'text-green-700' : 'text-stone-900'">
               {{ statusText }}
             </p>
             <button v-if="timerState === 'paused'" type="button" class="text-base font-semibold text-orange-800 underline underline-offset-4" @click="resetTimer">Nollställ</button>
+          </div>
+          <div v-else class="flex shrink-0 items-center gap-3 px-6 py-3 bg-transparent">
+            <p class="text-2xl font-bold tabular-nums text-black sm:text-3xl">{{ goal.reps }}</p>
+            <p class="text-sm font-bold uppercase tracking-wide text-stone-500">{{ repsLabel }}</p>
           </div>
         </div>
       </div>
@@ -240,8 +303,13 @@ async function scrollToTop() {
           </svg>
         </button>
 
-        <button type="button" class="h-14 flex-1 rounded-full text-xl font-bold shadow-lg transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" :class="timerButtonClass" @click="toggleTimer">{{ timerButtonText }}
+        <button v-if="isTimed" type="button" class="h-14 flex-1 rounded-full text-xl font-bold shadow-lg transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" :class="timerButtonClass" @click="toggleTimer">
+          {{ timerButtonText }}
         </button>
+        <button v-else type="button" class="h-14 flex-1 rounded-full bg-green-700 text-xl font-bold text-white shadow-lg shadow-green-700/40 transition hover:bg-green-600 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" @click="increase">
+          {{ isLast ? 'Klart!' : 'Klar' }}
+        </button>
+
 
         <button type="button" aria-label="Nästa övning" class="flex size-14 shrink-0 items-center justify-center rounded-full bg-green-700 text-white transition enabled:hover:bg-green-600 enabled:active:scale-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400 disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-400" @click="increase" :disabled="completedWorkouts + 1 >= numberOfWorkouts">
           <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
