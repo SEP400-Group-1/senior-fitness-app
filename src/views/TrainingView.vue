@@ -1,5 +1,6 @@
 <script setup>
 import {computed, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
+import { useRouter } from 'vue-router'
 
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
 
@@ -110,9 +111,6 @@ const timeLeft = ref(exerciseSeconds.value)
 const timerState = ref('idle') // 'idle' | 'running' | 'paused' | 'done'
 let intervalId = null
 
-const ringLength = 2 * Math.PI * 44
-const ringOffset = computed(() => ringLength * (1 - timeLeft.value / exerciseSeconds.value))
-
 const timeText = computed(() => {
   const t = Math.max(timeLeft.value, 0)
   const m = Math.floor(t / 60)
@@ -127,12 +125,6 @@ const timerButtonText = computed(() => {
   return 'Starta Passet!'
 })
 
-const statusText = computed(() => {
-  if (timerState.value === 'running') return 'Pågår...'
-  if (timerState.value === 'paused') return 'Pausad'
-  if (timerState.value === 'done') return 'Bra jobbat!'
-  return 'Pausad'
-})
 
 const timerButtonClass = computed(() => {
   if (timerState.value === 'running') return 'bg-amber-300 text-amber-950 shadow-amber-300/50 hover:bg-amber-200'
@@ -181,7 +173,6 @@ function toggleTimer() {
     pauseTimer()
   else startTimer()
 }
-// ---------------------------
 
 // ---------- Video pop-up ----------
 const videoOpen = ref(false)
@@ -217,6 +208,17 @@ async function scrollToTop() {
   await nextTick()
   scrollArea.value?.scrollTo({ top: 0, behavior: 'smooth' })
 }
+const router = useRouter()
+
+function finishWorkout() {
+  stopInterval()
+  router.replace({ name: 'home' })
+}
+
+function exitWorkout() {
+  stopInterval()
+  router.replace({ name: 'home' })
+}
 </script>
 
 <template>
@@ -227,7 +229,7 @@ async function scrollToTop() {
           Övning {{ completedWorkouts + 1 }} av {{ numberOfWorkouts }}
         </p>
 
-        <button type="button" class="shrink-0 rounded-full bg-red-500 px-4 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-red-600 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400">
+        <button type="button" class="shrink-0 rounded-full bg-red-500 px-4 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-red-600 active:scale-95" @click="exitWorkout">
           Avsluta Träning
         </button>
       </div>
