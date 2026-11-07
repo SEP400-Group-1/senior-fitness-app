@@ -234,35 +234,11 @@ async function scrollToTop() {
 
       <TrainingWorkoutAmountPill class="mt-3" :completed="completedWorkouts" :total="numberOfWorkouts" />
 
-      <div class="mt-5 flex flex-row items-end justify-between gap-3">
+      <div class="mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row">
         <h1 class="min-w-0 flex-1 text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-5xl">
           {{ Trainings[completedWorkouts][0] }}
         </h1>
 
-        <div class="flex shrink-0 flex-row items-center gap-3 rounded-full bg-white py-2 pl-2 pr-5 shadow-md ring-1 ring-stone-900/5">
-          <!-- Timer -->
-          <div v-if="isTimed" class="relative size-14 shrink-0">
-            <svg class="size-14 -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" class="stroke-orange-100" />
-              <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" stroke-linecap="round" :stroke-dasharray="ringLength" :stroke-dashoffset="ringOffset" class="transition-[stroke-dashoffset] duration-1000 ease-linear" :class="timerState === 'done' ? 'stroke-green-600' : 'stroke-orange-600'" />
-            </svg>
-            <span class="absolute inset-0 flex items-center justify-center text-base font-bold tabular-nums text-stone-900">
-              {{ timeText }}
-            </span>
-          </div>
-
-          <div v-if="isTimed" class="flex flex-row items-center gap-3">
-            <span class="sr-only">Tid kvar</span>
-            <p class="text-lg font-bold leading-tight" :class="timerState === 'done' ? 'text-green-700' : 'text-stone-900'">
-              {{ statusText }}
-            </p>
-            <button v-if="timerState === 'paused'" type="button" class="text-base font-semibold text-orange-800 underline underline-offset-4" @click="resetTimer">Nollställ</button>
-          </div>
-          <div v-else class="flex shrink-0 items-center gap-3 px-6 py-3 bg-transparent">
-            <p class="text-2xl font-bold tabular-nums text-black sm:text-3xl">{{ goal.reps }}</p>
-            <p class="text-sm font-bold uppercase tracking-wide text-stone-500">{{ repsLabel }}</p>
-          </div>
-        </div>
       </div>
     </header>
 
@@ -283,8 +259,27 @@ async function scrollToTop() {
       </button>
 
       <!-- Steps -->
-      <h2 class="mb-3 mt-6 text-sm font-bold uppercase tracking-[0.15em] text-stone-500">Steg:</h2>
-      <ol class="space-y-3">
+      <div class="mt-6 flex w-full items-center justify-between gap-3 p-1.5 sm:mt-8">
+        <h2 class="text-sm font-bold uppercase tracking-[0.15em] text-stone-500">Steg:</h2>
+
+        <!-- Time -->
+        <div v-if="isTimed" class="flex shrink-0 items-baseline gap-2 rounded-full bg-white px-5 py-2 shadow-md ring-1 ring-stone-900/5">
+          <span class="text-2xl font-bold tabular-nums leading-none text-stone-900" :class="timerState === 'done' ? 'text-green-700' : 'text-stone-900'">
+            {{ timeText }}
+          </span>
+          <p class="text-sm font-bold uppercase tracking-wide text-stone-500">Sek..</p>
+
+          <button v-if="timerState === 'paused'" type="button" class="text-sm font-semibold text-orange-800 underline underline-offset-4" @click="resetTimer">
+            Nollställ
+          </button>
+        </div>
+        <!-- Reps: big number + label -->
+        <div v-else class="flex shrink-0 items-baseline gap-2 rounded-full bg-white px-6 py-2 shadow-md">
+          <p class="text-2xl font-bold tabular-nums leading-none text-stone-900">{{ goal.reps }}</p>
+          <p class="text-sm font-bold uppercase tracking-wide text-stone-500">{{ repsLabel }}</p>
+        </div>
+      </div>
+      <ol class="space-y-2.5">
         <li v-for="(todo, i) in Trainings[completedWorkouts][1]" :key="todo" class="flex items-start gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-stone-900/5">
           <span class="flex size-10 shrink-0 items-center justify-center rounded-full text-xl font-bold text-black sm:size-12 sm:text-2xl">
             {{ i + 1 }}
@@ -330,24 +325,32 @@ async function scrollToTop() {
             </button>
           </div>
 
-          <!-- Timer above the video -->
-          <div class="mt-3 flex items-center gap-3 rounded-[2rem] bg-white p-2.5 shadow-md ring-1 ring-stone-900/5">
-            <div class="relative size-16 shrink-0">
-              <svg class="size-16 -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" class="stroke-orange-100" />
-                <circle cx="50" cy="50" r="44" fill="none" stroke-width="10" stroke-linecap="round" :stroke-dasharray="ringLength" :stroke-dashoffset="ringOffset" class="transition-[stroke-dashoffset] duration-1000 ease-linear" :class="timerState === 'done' ? 'stroke-green-600' : 'stroke-orange-600'" />
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-lg font-bold tabular-nums text-stone-900">
-                {{ timeText }}
-              </span>
+          <!-- Goal above the video -->
+          <div class="mt-3 flex w-full items-center justify-between gap-3">
+            <!-- Time -->
+            <div v-if="isTimed" class="flex shrink-0 items-baseline gap-2 rounded-full bg-white px-5 py-2 shadow-md ring-1 ring-stone-900/5">
+          <span class="text-2xl font-bold tabular-nums leading-none" :class="timerState === 'done' ? 'text-green-700' : 'text-stone-900'">
+            {{ timeText }}
+          </span>
+              <p class="text-sm font-bold uppercase tracking-wide text-stone-500">Sek..</p>
+
+              <button v-if="timerState === 'paused'" type="button" class="text-sm font-semibold text-orange-800 underline underline-offset-4" @click="resetTimer">
+                Nollställ
+              </button>
             </div>
 
-            <p class="min-w-0 flex-1 truncate text-lg font-bold" :class="timerState === 'done' ? 'text-green-700' : 'text-stone-900'">
-              {{ statusText }}
-            </p>
+            <!-- Reps -->
+            <div v-else class="flex shrink-0 items-baseline gap-2 rounded-full bg-white px-6 py-2 shadow-md ring-1 ring-stone-900/5">
+              <p class="text-2xl font-bold tabular-nums leading-none text-stone-900">{{ goal.reps }}</p>
+              <p class="text-sm font-bold uppercase tracking-wide text-stone-500">{{ repsLabel }}</p>
+            </div>
 
-            <button type="button" class="h-12 shrink-0 rounded-full px-5 text-lg font-bold shadow-md transition active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" :class="timerButtonClass" @click="toggleTimer">
+            <!-- Action button -->
+            <button v-if="isTimed" type="button" class="h-12 min-w-0 shrink-0 rounded-full px-5 text-lg font-bold shadow-md transition active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" :class="timerButtonClass" @click="toggleTimer">
               {{ timerButtonText }}
+            </button>
+            <button v-else type="button" class="h-12 shrink-0 rounded-full bg-green-700 px-5 text-lg font-bold text-white shadow-md transition hover:bg-green-600 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400" @click="closeVideo(); increase()">
+              {{ isLast ? 'Klart!' : 'Klar' }}
             </button>
           </div>
         </div>
