@@ -136,7 +136,7 @@ const Trainings = [
 ]
 
 const goal = computed(() => Trainings[completedWorkouts.value][2])
-const extra = computed(() => Trainings[completedWorkouts.value][3])
+// const extra = computed(() => Trainings[completedWorkouts.value][3])
 const isTimed = computed(() => goal.value.type === 'time')
 const isLast = computed(() => completedWorkouts.value + 1 >= numberOfWorkouts)
 const repsLabel = computed(() => (goal.value.perSide ? 'gånger per sida' : 'gånger'))
@@ -265,10 +265,10 @@ async function scrollToTop() {
 }
 const router = useRouter()
 
-function finishWorkout() {
-  stopInterval()
-  router.replace({ name: 'home' })
-}
+// function finishWorkout() {
+//   stopInterval()
+//   router.replace({ name: 'home' })
+// }
 
 function exitWorkout() {
   stopInterval()

@@ -9,9 +9,6 @@ import TrainingView from '../views/TrainingView.vue'
 import { useAuthStore } from '@/stores/auth'
 import { supabase } from '../lib/supabaseClient.js'
 
-import { useAuthStore } from '@/stores/auth'
-import { supabase } from '../lib/supabaseClient.js'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
