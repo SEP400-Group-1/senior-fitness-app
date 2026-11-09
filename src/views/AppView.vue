@@ -15,7 +15,7 @@ const handleLogOut = async () => {
   await auth.signOut()
   router.push('/')
 }
-const deviceType = ref(1)
+const deviceType = ref(2)
 </script>
 
 <template>
