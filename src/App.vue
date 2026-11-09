@@ -1,5 +1,9 @@
 <script setup>
+
+import TrainingView from "@/views/TrainingView.vue";
 import { RouterView } from 'vue-router'
+import MobileNav from './components/MobileNav.vue'
+
 </script>
 
 <template>
