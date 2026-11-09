@@ -3,7 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
-import TrainingWorkoutEndPage from "@/components/TrainingWorkoutEndPage.vue";
+import TrainingWorkoutEndPage from '@/components/TrainingWorkoutEndPage.vue'
 
 // [name, steps, goal, extra]
 // goal: { type: 'time', seconds, autostart? } or { type: 'reps', reps, perSide? }
@@ -146,13 +146,10 @@ const repsLabel = computed(() => (goal.value.perSide ? 'gånger per sida' : 'gå
 const numberOfWorkouts = Trainings.length
 const completedWorkouts = ref(0)
 
-
-
 const increase = () => {
-  if(isLast.value){
+  if (isLast.value) {
     isFinished.value = true
-  }
-  else if (completedWorkouts.value + 1 < numberOfWorkouts) {
+  } else if (completedWorkouts.value + 1 < numberOfWorkouts) {
     completedWorkouts.value++
     resetTimer()
     scrollToTop()
@@ -204,17 +201,15 @@ function startTimer() {
   stopInterval()
   intervalId = setInterval(() => {
     timeLeft.value--
-    if (timeLeft.value <= -1) { // extra second at 0:00
+    if (timeLeft.value <= -1) {
+      // extra second at 0:00
       timeLeft.value = 0
       stopInterval()
       timerState.value = 'done'
       navigator.vibrate?.(300)
 
-
       increase()
-      if (isTimed.value)
-        startTimer()
-
+      if (isTimed.value) startTimer()
     }
   }, 1000)
 }
@@ -277,7 +272,10 @@ function exitWorkout() {
 </script>
 
 <template>
-  <div v-if="!isFinished" class="fixed inset-0 flex flex-col bg-linear-to-t from-orange-200 to-white text-white px-5 pt-5 pb-5 sm:px-8 md:px-[5vw] lg:px-[5vw]">
+  <div
+    v-if="!isFinished"
+    class="fixed inset-0 flex flex-col bg-linear-to-t from-orange-200 to-white text-white px-5 pt-5 pb-5 sm:px-8 md:px-[5vw] lg:px-[5vw]"
+  >
     <header class="shrink-0">
       <div class="flex items-center justify-between gap-3">
         <p class="text-sm font-bold uppercase tracking-[0.15em] text-orange-900">
@@ -287,7 +285,8 @@ function exitWorkout() {
         <button
           type="button"
           class="shrink-0 rounded-full bg-red-500 px-4 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-red-600 active:scale-95"
-          @click="exitWorkout">
+          @click="exitWorkout"
+        >
           Avsluta Träning
         </button>
       </div>
@@ -397,7 +396,8 @@ function exitWorkout() {
           aria-label="Föregående övning"
           class="flex size-18 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-800 transition enabled:hover:bg-stone-200 enabled:active:scale-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400 disabled:cursor-not-allowed disabled:opacity-40"
           @click="decrease"
-          :disabled="completedWorkouts <= 0">
+          :disabled="completedWorkouts <= 0"
+        >
           <svg
             class="size-6"
             viewBox="0 0 24 24"
@@ -405,7 +405,8 @@ function exitWorkout() {
             stroke="currentColor"
             stroke-width="2.5"
             stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round"
+          >
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </button>
@@ -413,16 +414,18 @@ function exitWorkout() {
         <button
           v-if="isTimed"
           type="button"
-          class="size-18 flex-1  rounded-full text-xl font-bold shadow-lg transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400"
+          class="size-18 flex-1 rounded-full text-xl font-bold shadow-lg transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400"
           :class="timerButtonClass"
-          @click="toggleTimer">
+          @click="toggleTimer"
+        >
           {{ timerButtonText }}
         </button>
         <button
           v-else
           type="button"
           class="size-18 flex-1 rounded-full bg-green-700 text-3xl font-bold text-white shadow-lg shadow-green-700/40 transition hover:bg-green-600 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400"
-          @click="increase">
+          @click="increase"
+        >
           {{ isLast ? 'Klart!' : 'Klar' }}
         </button>
 
@@ -431,7 +434,8 @@ function exitWorkout() {
           aria-label="Nästa övning"
           class="flex size-18 shrink-0 items-center justify-center rounded-full bg-green-700 text-white transition enabled:hover:bg-green-600 enabled:active:scale-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400 disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-400"
           @click="increase"
-          :disabled="completedWorkouts + 1 >= numberOfWorkouts">
+          :disabled="completedWorkouts + 1 >= numberOfWorkouts"
+        >
           <svg
             class="size-6"
             viewBox="0 0 24 24"
@@ -439,7 +443,8 @@ function exitWorkout() {
             stroke="currentColor"
             stroke-width="2.5"
             stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round"
+          >
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>
