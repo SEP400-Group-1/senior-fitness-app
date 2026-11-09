@@ -4,7 +4,7 @@ import AppView from '@/views/AppView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ProgramsView from '../views/ProgramsView.vue'
-import TrainingView from "../views/TrainingView.vue";
+import TrainingView from '../views/TrainingView.vue'
 
 import { useAuthStore } from '@/stores/auth'
 import { supabase } from '../lib/supabaseClient.js'

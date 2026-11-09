@@ -24,7 +24,8 @@ const handleLogOut = async () => {
     <MobileNav></MobileNav>
     <button
       class="top-1.5 right-1.5 fixed bg-blue-500 rounded-4xl p-4 transition duration-300 hover:bg-blue-600 cursor-pointer"
-      @click="handleLogOut">
+      @click="handleLogOut"
+    >
       <font-awesome-icon icon="fa-solid fa-right-from-bracket" size="xl" fixed-width />
       <span class="mobile-nav-item-label">Logga ut</span>
     </button>
