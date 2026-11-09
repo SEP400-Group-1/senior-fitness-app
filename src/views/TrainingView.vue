@@ -538,7 +538,7 @@ function exitWorkout() {
               type="button"
               class="h-12 shrink-0 rounded-full bg-green-700 px-5 text-lg font-bold text-white shadow-md transition hover:bg-green-600 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-orange-400"
               @click="
-                closeVideo()
+                closeVideo(),
                 increase()
               "
             >
