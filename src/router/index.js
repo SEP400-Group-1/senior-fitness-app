@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ProgramsView from '../views/ProgramsView.vue'
 import TrainingView from '../views/TrainingView.vue'
+import LandingPageView from "../views/LandingPageView.vue";
 
 import { useAuthStore } from '@/stores/auth'
 import { supabase } from '../lib/supabaseClient.js'
@@ -12,7 +13,14 @@ import { supabase } from '../lib/supabaseClient.js'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', name: 'login', component: LoginView },
+      {
+          path: '/',
+          name: 'landingPage',
+          component: LandingPageView,
+          children: [
+              { path: 'login', name: 'login', component: LoginView },
+          ],
+      },
     {
       path: '/app',
       name: 'app',

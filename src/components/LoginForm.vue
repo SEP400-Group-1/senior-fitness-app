@@ -37,10 +37,16 @@ const handleRegister = async () => {
   }
   console.log(auth.user)
 }
+
+function openLandingPage() {
+  router.replace({ name: 'landingPage' })
+}
+
 </script>
 
 <template>
   <div class="w-full max-w-xs m-auto">
+    <button @click="openLandingPage" class="bg-red-600 rounded-2xl p-2 pr-4 pl-4">X</button>
     <form @submit.prevent class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
