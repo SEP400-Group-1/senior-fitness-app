@@ -5,7 +5,7 @@ import Login_form from './components/Login_form.vue'
 </script>
 
 <template>
-  <Login_form />
+  <Start_workout_page />
 
 </template>
 
