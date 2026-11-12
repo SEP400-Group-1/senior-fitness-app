@@ -32,7 +32,7 @@ const showModal = ref(false)
       >
         Läs mer
       </button>
-      <ProgramOverview @close="showModal = false" v-if="showModal" :obj="obj.id"></ProgramOverview>
+      <ProgramOverview @close="showModal = false" v-if="showModal" :obj="obj"></ProgramOverview>
     </div>
   </div>
 </template>
