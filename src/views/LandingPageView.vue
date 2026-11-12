@@ -233,7 +233,7 @@ function submitInterest() {
       <section id="resultat" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
         <h2 class="text-3xl font-extrabold md:text-4xl">Lars resa</h2>
         <p class="mt-4 max-w-2xl text-xl leading-relaxed text-stone-800">
-          Lars, 79, tränade hemma i 12 veckor. Så här förändrades hans gång.
+          Lars, 69, tränade hemma i 12 veckor. Så här förändrades hans gång.
         </p>
 
         <ol class="mt-10 grid gap-8 md:grid-cols-3">
