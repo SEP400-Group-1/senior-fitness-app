@@ -1,6 +1,4 @@
 <script setup>
-
-
 const model = defineModel()
 
 const props = defineProps({

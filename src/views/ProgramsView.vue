@@ -26,11 +26,7 @@ onMounted(async () => {
       class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] gap-4"
       v-if="fetchReady"
     >
-      <ProgramCard
-        v-for="object in fetchedData"
-        :key="object.id"
-        :obj="object"
-      ></ProgramCard>
+      <ProgramCard v-for="object in fetchedData" :key="object.id" :obj="object"></ProgramCard>
     </div>
   </div>
 </template>
