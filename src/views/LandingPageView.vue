@@ -1,5 +1,9 @@
 ﻿<script setup>
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import journey0 from '@/assets/images/results/0.png'
+import journey1 from '@/assets/images/results/1.png'
+import journey2 from '@/assets/images/results/2.png'
 
 const router = useRouter()
 const route = useRoute()
@@ -8,140 +12,155 @@ function openLoginPage() {
   router.push({ name: 'login' })
 }
 
-// Placeholder photos. Swap the img values for your own images later.
-const exercises = [
-  {
-    name: 'Sit to stand',
-    text: 'Stand up from a sturdy chair and sit back down slowly. It makes getting out of chairs and the toilet easier.',
-    focus: 'Strength',
-    needs: 'A sturdy chair',
-    img: 'https://cdn.todomountainbike.net/images/articles/2026/solo-quinze-minutos-de-bicicleta-dos-veces-por-semana-mayores-70-a%C3%B1os_4x3.webp',
-  },
-  {
-    name: 'Wall push-ups',
-    text: 'Lean into a wall and press away. A kind way to build arm and shoulder strength.',
-    focus: 'Strength',
-    needs: 'A wall',
-    img: 'https://friendsfamilyhomecare.com/wp-content/uploads/Wall-Push-Ups-1024x597.webp',
-  },
-  {
-    name: 'Shoulder and neck rolls',
-    text: 'Slow circles that loosen stiff shoulders, so reaching for shelves and getting dressed feels easier.',
-    focus: 'Mobility',
-    needs: 'Nothing, sit or stand',
-    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFyy-Xhs-7Ba_5ByDMVWSn8NLxe1nbZ1AXyPX424Md1T8682Qbwt5v6gg&s=10',
-  },
-  {
-    name: 'Seated marching',
-    text: 'Lift your knees one at a time while sitting. Warms up the hips and legs without any strain.',
-    focus: 'Mobility',
-    needs: 'A chair',
-    img: 'https://friendsfamilyhomecare.com/wp-content/uploads/Wall-Push-Ups-1024x597.webp',
-  },
-  {
-    name: 'Heel-to-toe stand',
-    text: 'Stand with one foot in front of the other and hold on to the counter. Builds balance for steady walking.',
-    focus: 'Independence',
-    needs: 'A kitchen counter',
-    img: 'https://i0.wp.com/seniorfitnesslab.com/wp-content/uploads/2026/09/chair-exercises-seniors-hero.webp?resize=930%2C545&ssl=1',
-  },
-  {
-    name: 'Counter calf raises',
-    text: 'Rise onto your toes while holding the counter. Strong calves help you climb stairs with confidence.',
-    focus: 'Independence',
-    needs: 'A kitchen counter',
-    img: 'https://ik.imagekit.io/02fmeo4exvw/expert-articles/2017/05/2017-05-08-chair-exercises-for-seniors-standing-hip-circles.png',
-  },
-]
+// Hero photo
+const heroImg =
+    'https://as2.ftcdn.net/v2/jpg/02/73/59/97/1000_F_273599725_96VVMEarOAOCvHG723oqIvXsTEUpmsMl.jpg'
 
 const features = [
   {
     icon: '🏠',
-    title: 'Train at home',
-    text: 'No gym, no travel. Every exercise uses a chair, a wall or your kitchen counter.',
+    title: 'Träna hemma',
+    text: 'Inget gymkort och inga resor. Övningarna görs med en stol, en vägg eller köksbänken.',
   },
   {
-    icon: '🌿',
-    title: 'Gentle programs',
-    text: 'Short routines made for older bodies. Every exercise has an easier option if you need it.',
+    icon: '⏱️',
+    title: 'I din egen takt',
+    text: 'Korta pass när det passar dig. Ingen stress och inga krav.',
   },
   {
-    icon: '🔎',
-    title: 'Large, clear screens',
-    text: 'Big text, big buttons and simple steps. No tiny menus to hunt through.',
+    icon: '🤝',
+    title: 'Efter dina förutsättningar',
+    text: 'Varje övning finns i en lättare version, så att du kan börja precis där du är.',
   },
 ]
+
+const programs = [
+  {
+    name: 'Styrka',
+    text: 'Starka ben och armar gör vardagen lättare, från att resa sig ur stolen till att bära hem matkassen.',
+    examples: ['Resa sig från stol', 'Armhävningar mot vägg', 'Tåhävningar vid bänken'],
+    img: 'https://friendsfamilyhomecare.com/wp-content/uploads/Wall-Push-Ups-1024x597.webp',
+  },
+  {
+    name: 'Balans',
+    text: 'Bättre balans ger trygghet när du går och minskar risken att ramla.',
+    examples: ['Stå på ett ben med stöd', 'Gå häl mot tå', 'Flytta vikten från sida till sida'],
+    img: 'https://i0.wp.com/seniorfitnesslab.com/wp-content/uploads/2026/09/chair-exercises-seniors-hero.webp?resize=930%2C545&ssl=1',
+  },
+  {
+    name: 'Rörlighet',
+    text: 'Mjuka rörelser gör leder och muskler följsamma, så att det blir lättare att klä på sig och sträcka sig.',
+    examples: ['Axelrullningar', 'Sittande marsch', 'Vrida överkroppen sittande'],
+    img: 'https://ik.imagekit.io/02fmeo4exvw/expert-articles/2017/05/2017-05-08-chair-exercises-for-seniors-standing-hip-circles.png',
+  },
+]
+
+// Placeholder story. Replace with the real photos and details (with permission).
+const journey = [
+  {
+    stage: 'Start',
+    title: 'Går med gåstativ',
+    text: 'Lars kände sig ostadig och behövde rollatorn vid varje promenad, även inomhus.',
+    img: journey0,
+  },
+  {
+    stage: 'Efter 6 veckor',
+    title: 'Står med stöd av stol',
+    text: 'Benen blev starkare och balansen bättre, så han kunde byta till ett lättare gånghjälpmedel.',
+    img: journey1,
+  },
+  {
+    stage: 'Efter 12 veckor',
+    title: 'Går på egen hand',
+    text: 'Nu går Lars till affären och tillbaka utan några hjälpmedel alls.',
+    img: journey2,
+  },
+]
+
+// Interest form (prototype: nothing is saved yet)
+const name = ref('')
+const email = ref('')
+const submitted = ref(false)
+
+function submitInterest() {
+  // TODO: save name and email to the backend (for example a Supabase table).
+  submitted.value = true
+}
 </script>
 
 <template>
   <div v-if="route.name === 'landingPage'" class="landing min-h-screen bg-[#EEF4EA] text-[#1F3A2E]">
     <!-- Navbar -->
-    <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-[#D5E3CF]">
+    <header class="sticky top-0 z-20 border-b border-[#D5E3CF] bg-white/90 backdrop-blur">
       <nav
           class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4"
-          aria-label="Main navigation"
+          aria-label="Huvudmeny"
       >
         <a href="#top" class="flex items-center gap-2 text-2xl font-extrabold">
           <span aria-hidden="true">🌻</span>
-          <span>Sunrise Gym</span>
+          <span>Senior Vitality</span>
         </a>
 
         <ul class="hidden items-center gap-8 text-lg font-semibold md:flex">
-          <li><a href="#product" class="hover:underline underline-offset-4">The app</a></li>
-          <li><a href="#exercises" class="hover:underline underline-offset-4">Exercises</a></li>
-          <li><a href="#about" class="hover:underline underline-offset-4">About us</a></li>
+          <li><a href="#appen" class="underline-offset-4 hover:underline">Om appen</a></li>
+          <li><a href="#program" class="underline-offset-4 hover:underline">Träningsprogram</a></li>
+          <li><a href="#om-mig" class="underline-offset-4 hover:underline">Om mig</a></li>
+          <li><a href="#resultat" class="underline-offset-4 hover:underline">Resultat</a></li>
         </ul>
 
-        <button
-            @click="openLoginPage"
-            class="cursor-pointer rounded-full bg-[#F2A93B] px-6 py-3 text-lg font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#1F3A2E]"
+        <a
+            href="#intresse"
+            class="rounded-full bg-[#F2A93B] px-6 py-3 text-lg font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#1F3A2E]"
         >
-          Log in
-        </button>
+          Anmäl intresse
+        </a>
       </nav>
     </header>
 
     <main id="top">
       <!-- Hero -->
-      <section class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:grid-cols-2 md:py-20">
-        <div>
-          <h1 class="text-4xl font-extrabold leading-tight md:text-6xl">
-            Get stronger and stay independent, right at home.
-          </h1>
-          <p class="mt-6 max-w-xl text-xl leading-relaxed">
-            Sunrise Gym guides you through short, gentle exercises that build strength,
-            keep you moving freely and help you manage daily life on your own.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            <button
-                @click="openLoginPage"
-                class="cursor-pointer rounded-full bg-[#1F3A2E] px-8 py-4 text-xl font-bold text-white transition hover:bg-[#2D5442] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#F2A93B]"
-            >
-              Get started
-            </button>
-            <a
-                href="#exercises"
-                class="rounded-full border-2 border-[#1F3A2E] px-8 py-4 text-xl font-bold transition hover:bg-white focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#F2A93B]"
-            >
-              See the exercises
-            </a>
+      <section class="relative isolate overflow-hidden">
+        <img
+            :src="heroImg"
+            alt="En äldre kvinna tränar hemma i sitt vardagsrum"
+            class="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div class="hero-overlay absolute inset-0 -z-10" aria-hidden="true"></div>
+
+        <div class="mx-auto max-w-6xl px-5 py-24 text-white md:py-40">
+          <div class="max-w-2xl">
+            <h1 class="text-4xl font-extrabold leading-tight md:text-6xl">
+              Träna hemma, i din egen takt.
+            </h1>
+            <p class="mt-6 text-xl leading-relaxed md:text-2xl">
+              Senior Vitality är appen för dig som vill bli starkare, stå stadigare och röra dig
+              friare. Med mig som personlig tränare hela vägen.
+            </p>
+            <div class="mt-10 flex flex-wrap gap-4">
+              <a
+                  href="#intresse"
+                  class="rounded-full bg-[#F2A93B] px-8 py-4 text-xl font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Anmäl ditt intresse
+              </a>
+              <a
+                  href="#program"
+                  class="rounded-full border-2 border-white px-8 py-4 text-xl font-bold transition hover:bg-white hover:text-[#1F3A2E] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#F2A93B]"
+              >
+                Se träningsprogrammen
+              </a>
+            </div>
           </div>
         </div>
-
-        <img
-            src="https://as2.ftcdn.net/v2/jpg/02/73/59/97/1000_F_273599725_96VVMEarOAOCvHG723oqIvXsTEUpmsMl.jpg"
-            alt="An older woman exercising in her living room"
-            class="h-80 w-full rounded-[2rem] object-cover shadow-lg md:h-[28rem]"
-        />
       </section>
 
-      <!-- About the product -->
-      <section id="product" class="scroll-mt-24 bg-white py-16">
+      <!-- About the app -->
+      <section id="appen" class="scroll-mt-24 bg-white py-16">
         <div class="mx-auto max-w-6xl px-5">
-          <h2 class="text-3xl font-extrabold md:text-4xl">An app that is easy to use</h2>
+          <h2 class="text-3xl font-extrabold md:text-4xl">Det här är Senior Vitality</h2>
           <p class="mt-4 max-w-2xl text-xl leading-relaxed">
-            Sunrise Gym focuses on three things: strength, mobility and independence. Ten
-            minutes a day is enough to start.
+            En träningsapp för seniorer, med program som du gör hemma och som är anpassade efter
+            dig. Du får tydliga instruktioner och en tränare som finns med hela vägen.
           </p>
 
           <div class="mt-10 grid gap-6 md:grid-cols-3">
@@ -158,70 +177,140 @@ const features = [
         </div>
       </section>
 
-      <!-- Exercises -->
-      <section id="exercises" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
-        <h2 class="text-3xl font-extrabold md:text-4xl">Exercises you can do at home</h2>
+      <!-- Training programs -->
+      <section id="program" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
+        <h2 class="text-3xl font-extrabold md:text-4xl">Träningsprogram</h2>
         <p class="mt-4 max-w-2xl text-xl leading-relaxed">
-          Here are a few from the app. Each one comes with clear steps and an easier option.
+          Tre program som tillsammans gör vardagen enklare och håller dig självständig.
         </p>
 
-        <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-10 grid gap-8 md:grid-cols-3">
           <article
-              v-for="exercise in exercises"
-              :key="exercise.name"
+              v-for="program in programs"
+              :key="program.name"
               class="overflow-hidden rounded-3xl border border-[#D5E3CF] bg-white"
           >
-            <img :src="exercise.img" :alt="exercise.name" class="h-52 w-full object-cover" />
+            <img :src="program.img" :alt="program.name" class="h-52 w-full object-cover" />
             <div class="p-6">
-              <p class="inline-block rounded-full bg-[#FCE3B4] px-4 py-1 text-base font-bold">
-                {{ exercise.focus }}
-              </p>
-              <h3 class="mt-3 text-2xl font-bold">{{ exercise.name }}</h3>
-              <p class="mt-2 text-lg leading-relaxed">{{ exercise.text }}</p>
-              <p class="mt-4 text-base font-semibold">You need: {{ exercise.needs }}</p>
+              <h3 class="text-2xl font-bold">{{ program.name }}</h3>
+              <p class="mt-2 text-lg leading-relaxed">{{ program.text }}</p>
+              <p class="mt-4 text-base font-bold">Exempel på övningar:</p>
+              <ul class="mt-1 list-disc pl-6 text-lg leading-relaxed">
+                <li v-for="example in program.examples" :key="example">{{ example }}</li>
+              </ul>
             </div>
           </article>
         </div>
       </section>
 
-      <!-- About us -->
-      <section id="about" class="scroll-mt-24 bg-white py-16">
+      <!-- About me -->
+      <section id="om-mig" class="scroll-mt-24 bg-white py-16">
         <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
           <img
-              src="https://mail.google.com/mail/u/2?ui=2&ik=c907dccc9b&attid=0.0.1&permmsgid=msg-f:1879183113995791270&th=1a143315f9a1aba6&view=fimg&fur=ip&permmsgid=msg-f:1879183113995791270&sz=s0-l75-ft&attbid=ANGjdJ8vKf-rdcsJztq_spjAJB2R-mTn8rnlxPAauHzazSPYwc-1v0uBUtMGvvQj-5NFQGu74bE2bC7hvKF3WYVMuaEUc2Sfm8PYcD1JoON_c-EiY-1-Y1OjcOwqBFE&disp=emb&zw"
-              alt="Your physiotherapist, smiling, in a bright room"
-              class="mx-auto aspect-[4/5] w-full max-w-sm rounded-[2rem] object-cover object-left-bottom shadow-lg"
+              src="@/assets/images/me.jpg"
+              alt="Din fysioterapeut, leende i ett ljust rum"
+              class="mx-auto aspect-[4/5] w-full max-w-sm rounded-[2rem] object-cover shadow-lg"
           />
           <div>
-            <h2 class="text-3xl font-extrabold md:text-4xl">About me</h2>
+            <h2 class="text-3xl font-extrabold md:text-4xl">Om mig</h2>
             <p class="mt-4 text-xl leading-relaxed">
-              I'm a physiotherapist who works with older adults. Again and again I meet people who
-              want to stay strong and keep living in their own homes, but don't know where to start.
+              Hej! Jag är fysioterapeut och arbetar med seniorer. Jag har sett hur mycket några
+              korta pass i veckan kan betyda för styrka, balans och självständighet.
             </p>
             <p class="mt-4 text-xl leading-relaxed">
-              I made Sunrise Gym so you can do the exercises I teach in my sessions, at home and
-              in your own time. No special equipment and no pressure. Start where you are and go
-              at your own pace.
+              Med Senior Vitality kan jag vara med dig hemma som din personliga tränare. Du får
+              program som passar just dig, tydliga instruktioner och någon som lyssnar. Börja där
+              du är och gå framåt i din egen takt.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Closing call to action -->
-      <section class="mx-auto max-w-3xl px-5 py-16 text-center">
-        <h2 class="text-3xl font-extrabold md:text-4xl">Ready to take the first step?</h2>
-        <p class="mt-4 text-xl leading-relaxed">It takes less than a minute to get started.</p>
-        <button
-            @click="openLoginPage"
-            class="mt-8 cursor-pointer rounded-full bg-[#F2A93B] px-10 py-4 text-xl font-bold transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#1F3A2E]"
-        >
-          Log in
-        </button>
+      <!-- Results -->
+      <section id="resultat" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
+        <h2 class="text-3xl font-extrabold md:text-4xl">Lars resa</h2>
+        <p class="mt-4 max-w-2xl text-xl leading-relaxed">
+          Lars, 79, tränade hemma i 12 veckor. Så här förändrades hans gång.
+        </p>
+
+        <ol class="mt-10 grid gap-8 md:grid-cols-3">
+          <li
+              v-for="step in journey"
+              :key="step.stage"
+              class="overflow-hidden rounded-3xl border border-[#D5E3CF] bg-white"
+          >
+            <img :src="step.img" :alt="step.title" class="aspect-square w-full object-cover" />
+            <div class="p-6">
+              <p class="inline-block rounded-full bg-[#FCE3B4] px-4 py-1 text-base font-bold">
+                {{ step.stage }}
+              </p>
+              <h3 class="mt-3 text-2xl font-bold">{{ step.title }}</h3>
+              <p class="mt-2 text-lg leading-relaxed">{{ step.text }}</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Register interest -->
+      <section id="intresse" class="scroll-mt-24 bg-[#1F3A2E] py-16 text-white">
+        <div class="mx-auto max-w-2xl px-5">
+          <h2 class="text-3xl font-extrabold md:text-4xl">Anmäl ditt intresse</h2>
+          <p class="mt-4 text-xl leading-relaxed">
+            Appen lanseras snart. Lämna ditt namn och din e-postadress, så hör vi av oss så fort
+            den öppnar. Du förbinder dig inte till något.
+          </p>
+
+          <form v-if="!submitted" class="mt-8 space-y-5" @submit.prevent="submitInterest">
+            <div>
+              <label for="interest-name" class="block text-lg font-bold">Ditt namn</label>
+              <input
+                  id="interest-name"
+                  v-model="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  class="mt-2 w-full rounded-2xl border-2 border-transparent bg-white px-5 py-4 text-xl text-[#1F3A2E] focus:border-[#F2A93B] focus:outline-none"
+              />
+            </div>
+            <div>
+              <label for="interest-email" class="block text-lg font-bold">Din e-postadress</label>
+              <input
+                  id="interest-email"
+                  v-model="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="mt-2 w-full rounded-2xl border-2 border-transparent bg-white px-5 py-4 text-xl text-[#1F3A2E] focus:border-[#F2A93B] focus:outline-none"
+              />
+            </div>
+            <button
+                type="submit"
+                class="cursor-pointer rounded-full bg-[#F2A93B] px-10 py-4 text-xl font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              Anmäl mitt intresse
+            </button>
+            <p class="text-base">Vi använder bara din e-postadress för att höra av oss om lanseringen.</p>
+          </form>
+
+          <p
+              v-else
+              class="mt-8 rounded-3xl bg-white p-6 text-xl font-semibold text-[#1F3A2E]"
+              role="status"
+          >
+            Tack, {{ name }}! Vi hör av oss när appen lanseras.
+          </p>
+        </div>
       </section>
     </main>
 
-    <footer class="bg-[#1F3A2E] py-8 text-center text-lg text-white">
-      © 2026 Sunrise Gym. This is a prototype.
+    <footer class="bg-[#16291F] py-8 text-center text-lg text-white">
+      <p>© 2026 Senior Vitality. Det här är en prototyp.</p>
+      <button
+          @click="openLoginPage"
+          class="mt-3 cursor-pointer text-lg underline underline-offset-4 hover:text-[#F2A93B]"
+      >
+        Logga in
+      </button>
     </footer>
   </div>
 
@@ -239,6 +328,16 @@ html {
 .landing {
   font-family: 'Nunito', system-ui, sans-serif;
   font-size: 18px;
+}
+
+/* Darkens the left side of the hero photo so the white text stays readable */
+.hero-overlay {
+  background: linear-gradient(
+      90deg,
+      rgba(31, 58, 46, 0.92) 0%,
+      rgba(31, 58, 46, 0.75) 45%,
+      rgba(31, 58, 46, 0.25) 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
