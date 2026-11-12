@@ -11,6 +11,8 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     training_style: '', // string, since is_multichoice is false
   })
 
+  const reset = () => {data.goals = [], data.activity_level = ''; data.training_style = '', currentStep.value = 0;}
+
   const steps = [
     {
       id: 'goals',
@@ -159,5 +161,6 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     isSubmitting,
     submitError,
     submit,
+    reset,
   }
 })

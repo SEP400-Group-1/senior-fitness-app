@@ -7,6 +7,7 @@ import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vu
 import { useRouter } from 'vue-router'
 import {supabase} from '../lib/supabaseClient.js'
 import {onMounted} from 'vue'
+import LogOutButton from '@/components/LogOutButton.vue'
 
 const onboarding = useOnboardingStore()
 const router = useRouter()
@@ -26,6 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <LogOutButton></LogOutButton>
   <div class="onboarding-view text-center w-full">
     <TrainingWorkoutAmountPill
       class="mt-3 mb-3"

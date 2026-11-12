@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '../lib/supabaseClient.js'
+import { useOnboardingStore } from './onboarding.js'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
@@ -24,9 +25,9 @@ export const useAuthStore = defineStore('auth', () => {
     if (oldId !== newId) onboardingComplete.value = false
   })
 
-  const signUp = (email, password) => supabase.auth.signUp({ email, password })
-  const signIn = (email, password) => supabase.auth.signInWithPassword({ email, password })
-  const signOut = () => supabase.auth.signOut()
+  const signUp = async (email, password) => await supabase.auth.signUp({ email, password })
+  const signIn = async (email, password) => await supabase.auth.signInWithPassword({ email, password })
+  const signOut = async () =>{ await supabase.auth.signOut(); useOnboardingStore().reset()}
 
   const refreshOnboarding = async () => {
     if (!user.value) return
