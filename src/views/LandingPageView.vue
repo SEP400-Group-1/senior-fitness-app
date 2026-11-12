@@ -36,19 +36,19 @@ const programs = [
     name: 'Styrka',
     text: 'Starka ben och armar gör vardagen lättare, från att resa sig ur stolen till att bära hem matkassen.',
     examples: ['Resa sig från stol', 'Armhävningar mot vägg', 'Tåhävningar vid bänken'],
-    img: 'https://friendsfamilyhomecare.com/wp-content/uploads/Wall-Push-Ups-1024x597.webp',
+    img: 'src/assets/images/program/styrka.png',
   },
   {
     name: 'Balans',
     text: 'Bättre balans ger trygghet när du går och minskar risken att ramla.',
     examples: ['Stå på ett ben med stöd', 'Gå häl mot tå', 'Flytta vikten från sida till sida'],
-    img: 'https://i0.wp.com/seniorfitnesslab.com/wp-content/uploads/2026/09/chair-exercises-seniors-hero.webp?resize=930%2C545&ssl=1',
+    img: 'src/assets/images/program/balans.png',
   },
   {
     name: 'Rörlighet',
     text: 'Mjuka rörelser gör leder och muskler följsamma, så att det blir lättare att klä på sig och sträcka sig.',
     examples: ['Axelrullningar', 'Sittande marsch', 'Vrida överkroppen sittande'],
-    img: 'https://ik.imagekit.io/02fmeo4exvw/expert-articles/2017/05/2017-05-08-chair-exercises-for-seniors-standing-hip-circles.png',
+    img: 'src/assets/images/program/rorlighet.png',
   },
 ]
 
@@ -76,7 +76,7 @@ const journey = [
 
 // Contact details (placeholders, replace with the real ones)
 const contact = {
-  email: 'larssoncecilia1@gmail.com',
+  email: 'cecilia@heronfamily.se',
   phone: '076-396 72 70',
   phoneLink: '+46763967270',
 }
@@ -193,7 +193,7 @@ function submitInterest() {
               :key="program.name"
               class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-stone-900/5"
           >
-            <img :src="program.img" :alt="program.name" class="h-52 w-full object-cover" />
+            <img :src="program.img" :alt="program.name" class="h-52 w-full object-cover " />
             <div class="p-6">
               <h3 class="text-2xl font-bold">{{ program.name }}</h3>
               <p class="mt-2 text-lg leading-relaxed text-stone-800">{{ program.text }}</p>
