@@ -1,12 +1,12 @@
 <script setup>
 import { useOnboardingStore } from '@/stores/onboarding'
-import {useAuthStore} from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 import OnboardingItem from '@/components/OnboardingItem.vue'
 import OnboardingSummary from '@/components/OnboardingSummary.vue'
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
 import { useRouter } from 'vue-router'
-import {supabase} from '../lib/supabaseClient.js'
-import {onMounted} from 'vue'
+import { supabase } from '../lib/supabaseClient.js'
+import { onMounted } from 'vue'
 import LogOutButton from '@/components/LogOutButton.vue'
 
 const onboarding = useOnboardingStore()
@@ -15,14 +15,14 @@ const auth = useAuthStore()
 
 const submitOnboarding = async () => {
   const row = await onboarding.submit()
-  if (row) router.push({path: '/app/home'}) 
-
+  if (row) router.push({ path: '/app/home' })
 }
 onMounted(async () => {
-  const { data: { session } } = await supabase.auth.getSession()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
   console.log(session) // null means not logged in
   console.log(auth.user.id)
-
 })
 </script>
 

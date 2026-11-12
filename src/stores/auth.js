@@ -26,8 +26,12 @@ export const useAuthStore = defineStore('auth', () => {
   })
 
   const signUp = async (email, password) => await supabase.auth.signUp({ email, password })
-  const signIn = async (email, password) => await supabase.auth.signInWithPassword({ email, password })
-  const signOut = async () =>{ await supabase.auth.signOut(); useOnboardingStore().reset()}
+  const signIn = async (email, password) =>
+    await supabase.auth.signInWithPassword({ email, password })
+  const signOut = async () => {
+    await supabase.auth.signOut()
+    useOnboardingStore().reset()
+  }
 
   const refreshOnboarding = async () => {
     if (!user.value) return

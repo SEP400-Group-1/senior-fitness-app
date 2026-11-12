@@ -19,9 +19,9 @@ const handleLogOut = async () => {
     <DesktopNavItem :icon="'fa-home'" :title="'Hem'" :name="'home'"></DesktopNavItem>
     <DesktopNavItem :icon="'fa-dumbbell'" :title="'Program'" :name="'programs'"></DesktopNavItem>
     <DesktopNavItem :icon="'fa-user'" :title="'Profil'" :name="'profile'"></DesktopNavItem>
-    <hr class="w-full border-t border-stone-300"></hr>
+    <hr class="w-full border-t border-stone-300" />
     <button
-      class=" bg-white w-full flex rounded-4xl justify-start gap-2 text-center flex-1 text-xl p-4 transition duration-300 cursor-pointer text-slate-800 border-2 border-stone-300 hover:border-gray-200"
+      class="bg-white w-full flex rounded-4xl justify-start gap-2 text-center flex-1 text-xl p-4 transition duration-300 cursor-pointer text-slate-800 border-2 border-stone-300 hover:border-gray-200"
       @click="handleLogOut"
     >
       <font-awesome-icon icon="fa-solid fa-right-from-bracket" size="xl" fixed-width />
