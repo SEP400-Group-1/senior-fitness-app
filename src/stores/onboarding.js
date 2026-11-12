@@ -1,5 +1,6 @@
 import { ref, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { supabase } from '@/lib/supabaseClient'
 
 export const useOnboardingStore = defineStore('onboarding', () => {
   const currentStep = ref(0)
@@ -7,7 +8,7 @@ export const useOnboardingStore = defineStore('onboarding', () => {
   const data = reactive({
     goals: [],
     activity_level: '',
-    training_location: '', // Changed from [] to '' since is_multichoice is false
+    training_style: '', // string, since is_multichoice is false
   })
 
   const steps = [
@@ -19,7 +20,7 @@ export const useOnboardingStore = defineStore('onboarding', () => {
         { value: 'become_stronger', title: 'Bygga styrka för att orka mer i vardagen.' },
         { value: 'improve_balance', title: 'Känna mig tryggare när jag står, går och rör mig.' },
         { value: 'improve_flexibility', title: 'Bli smidigare och lättare kunna utföra vardagliga rörelser.' },
-        { value: 'improve_cardio', title: 'Bli smidigare och lättare kunna utföra vardagliga rörelser.' },
+        { value: 'improve_cardio', title: 'Förbättra min kondition och uthållighet.' }, // was a duplicate of improve_flexibility
         { value: 'reduce_weight', title: 'Uppnå en hälsosam vikt med hjälp av anpassad träning.' },
         { value: 'build_muscle', title: 'Öka eller bibehålla min muskelmassa.' },
         { value: 'prevent_injury', title: 'Förbättra styrka, stabilitet och kroppskontroll.' },
@@ -31,7 +32,7 @@ export const useOnboardingStore = defineStore('onboarding', () => {
         { value: 'stay_independent', title: 'Fortsätta kunna leva ett aktivt och självständigt liv.' },
         { value: 'reduce_staleness', title: 'Förbättra rörligheten och känna mig mindre stel i kroppen.' },
         { value: 'improve_health', title: 'Förbättra mitt allmänna välbefinnande genom fysisk aktivitet' },
-      ]
+      ],
     },
     {
       id: 'activity_level',
@@ -43,18 +44,18 @@ export const useOnboardingStore = defineStore('onboarding', () => {
         { value: 'rarely_active', title: 'Jag klarar mina vardagliga aktiviteter själv men motionerar eller tränar inte regelbundet' },
         { value: 'active', title: 'Jag promenerar, cyklar eller rör mig regelbundet och vill bibehålla eller förbättra min fysiska förmåga.' },
         { value: 'very_active', title: 'Jag tränar styrka, kondition eller balans flera gånger i veckan och vill fortsätta utvecklas.' },
-      ]
+      ],
     },
     {
-      id: 'training_location',
-      title: 'Var vill du träna?',
+      id: 'training_style',
+      title: 'Hur vill du träna?',
       is_multichoice: false,
       options: [
         { value: 'sitting', title: 'Övningar utförs på en stol.' },
         { value: 'standing', title: 'Övningar stående, med eller utan stöd.' },
         { value: 'lying', title: 'Övningar liggandes på en matta eller i sängen' },
         { value: 'varied', title: 'Kombination av sittande, stående och liggande övningar' },
-      ]
+      ],
     },
   ]
 
@@ -81,7 +82,7 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     }
   }
 
-  // Helper to resolve selected option values into readable titles for the summary
+  // Resolve selected option values into readable titles for the summary
   const summaryDetails = computed(() => {
     return steps.map((step) => {
       const selected = data[step.id]
@@ -95,10 +96,51 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     })
   })
 
-  // Jump back to a specific step from the summary if the user wants to edit an answer
+  // Jump back to a specific step from the summary to edit an answer
   const goToStep = (index) => {
     if (index >= 0 && index < steps.length) {
       currentStep.value = index
+    }
+  }
+
+  const isSubmitting = ref(false)
+  const submitError = ref(null)
+
+  const submit = async () => {
+    if (isSubmitting.value) return null
+    isSubmitting.value = true
+    submitError.value = null
+
+    try {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser()
+      console.log("checking that id is", user.id)
+
+      if (userError || !user) {
+        submitError.value = 'Du är inte inloggad.'
+        return null
+      }
+
+      const { data: row, error } = await supabase
+        .from('profiles_duplicate_by_william')
+        .update({
+          goals: [...data.goals],
+          activity_level: data.activity_level, // plain string (enum)
+          training_style: [data.training_style], // plain string (enum)
+        })
+        .eq('id', user.id)
+        .select()
+        .single()
+
+      if (error) {
+        submitError.value = error.message
+        return null
+      }
+      return row
+    } finally {
+      isSubmitting.value = false
     }
   }
 
@@ -114,5 +156,8 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     next,
     back,
     goToStep,
+    isSubmitting,
+    submitError,
+    submit,
   }
 })

@@ -1,14 +1,28 @@
 <script setup>
 import { useOnboardingStore } from '@/stores/onboarding'
+import {useAuthStore} from '@/stores/auth'
 import OnboardingItem from '@/components/OnboardingItem.vue'
 import OnboardingSummary from '@/components/OnboardingSummary.vue'
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
+import { useRouter } from 'vue-router'
+import {supabase} from '../lib/supabaseClient.js'
+import {onMounted} from 'vue'
 
 const onboarding = useOnboardingStore()
+const router = useRouter()
+const auth = useAuthStore()
 
 const submitOnboarding = async () => {
-  // Handle final submission (e.g., save onboarding.data to Supabase and route to dashboard)
+  const row = await onboarding.submit()
+  if (row) router.push({path: '/app/home'}) 
+
 }
+onMounted(async () => {
+  const { data: { session } } = await supabase.auth.getSession()
+  console.log(session) // null means not logged in
+  console.log(auth.user.id)
+
+})
 </script>
 
 <template>

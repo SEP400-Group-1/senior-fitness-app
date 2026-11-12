@@ -5,7 +5,7 @@ import DesktopNav from '../components/DesktopNav.vue'
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
 
-const deviceType = ref(2)
+const deviceType = ref(1)
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 

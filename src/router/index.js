@@ -14,6 +14,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', name: 'login', component: LoginView },
+    { path: '/onboarding', name: 'onboarding', component: OnboardingView, meta: {requiresAuth: true, requiresOnboarding: false} },
     {
       path: '/app',
       name: 'app',
@@ -22,7 +23,6 @@ const router = createRouter({
         requiresAuth: true,
       },
       children: [
-        { path: 'onboarding', name: 'onboarding', component: OnboardingView, meta: {requiresOnboarding: false} },
         { path: 'home', name: 'home', component: HomeView, meta: {requiresOnboarding: true} },
         { path: 'profile', name: 'profile', component: ProfileView, meta: {requiresOnboarding: true} },
         { path: 'programs', name: 'programs', component: ProgramsView, meta: {requiresOnboarding: true} },
