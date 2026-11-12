@@ -18,17 +18,14 @@ const heroImg =
 
 const features = [
   {
-    icon: '🏠',
     title: 'Träna hemma',
     text: 'Inget gymkort och inga resor. Övningarna görs med en stol, en vägg eller köksbänken.',
   },
   {
-    icon: '⏱️',
     title: 'I din egen takt',
     text: 'Korta pass när det passar dig. Ingen stress och inga krav.',
   },
   {
-    icon: '🤝',
     title: 'Efter dina förutsättningar',
     text: 'Varje övning finns i en lättare version, så att du kan börja precis där du är.',
   },
@@ -59,7 +56,7 @@ const programs = [
 const journey = [
   {
     stage: 'Start',
-    title: 'Går med gåstativ',
+    title: 'Går med rollator',
     text: 'Lars kände sig ostadig och behövde rollatorn vid varje promenad, även inomhus.',
     img: journey0,
   },
@@ -77,6 +74,13 @@ const journey = [
   },
 ]
 
+// Contact details (placeholders, replace with the real ones)
+const contact = {
+  email: 'larssoncecilia1@gmail.com',
+  phone: '076-396 72 70',
+  phoneLink: '+46763967270',
+}
+
 // Interest form (prototype: nothing is saved yet)
 const name = ref('')
 const email = ref('')
@@ -89,17 +93,14 @@ function submitInterest() {
 </script>
 
 <template>
-  <div v-if="route.name === 'landingPage'" class="landing min-h-screen bg-[#EEF4EA] text-[#1F3A2E]">
+  <div v-if="route.name === 'landingPage'" class="landing min-h-screen bg-white text-stone-900">
     <!-- Navbar -->
-    <header class="sticky top-0 z-20 border-b border-[#D5E3CF] bg-white/90 backdrop-blur">
+    <header class="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
       <nav
           class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4"
           aria-label="Huvudmeny"
       >
-        <a href="#top" class="flex items-center gap-2 text-2xl font-extrabold">
-          <span aria-hidden="true">🌻</span>
-          <span>Senior Vitality</span>
-        </a>
+        <a href="#top" class="text-2xl font-extrabold">Senior Vitality</a>
 
         <ul class="hidden items-center gap-8 text-lg font-semibold md:flex">
           <li><a href="#appen" class="underline-offset-4 hover:underline">Om appen</a></li>
@@ -110,7 +111,7 @@ function submitInterest() {
 
         <a
             href="#intresse"
-            class="rounded-full bg-[#F2A93B] px-6 py-3 text-lg font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#1F3A2E]"
+            class="rounded-full bg-orange-700 px-6 py-3 text-lg font-bold text-white transition hover:bg-orange-600 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
         >
           Anmäl intresse
         </a>
@@ -125,7 +126,10 @@ function submitInterest() {
             alt="En äldre kvinna tränar hemma i sitt vardagsrum"
             class="absolute inset-0 -z-10 h-full w-full object-cover"
         />
-        <div class="hero-overlay absolute inset-0 -z-10" aria-hidden="true"></div>
+        <div
+            class="absolute inset-0 -z-10 bg-linear-to-r from-stone-900/90 via-stone-900/70 to-stone-900/20"
+            aria-hidden="true"
+        ></div>
 
         <div class="mx-auto max-w-6xl px-5 py-24 text-white md:py-40">
           <div class="max-w-2xl">
@@ -139,13 +143,13 @@ function submitInterest() {
             <div class="mt-10 flex flex-wrap gap-4">
               <a
                   href="#intresse"
-                  class="rounded-full bg-[#F2A93B] px-8 py-4 text-xl font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  class="rounded-full bg-orange-600 px-8 py-4 text-xl font-bold text-white shadow-lg shadow-orange-600/40 transition hover:bg-orange-500 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Anmäl ditt intresse
               </a>
               <a
                   href="#program"
-                  class="rounded-full border-2 border-white px-8 py-4 text-xl font-bold transition hover:bg-white hover:text-[#1F3A2E] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#F2A93B]"
+                  class="rounded-full border-2 border-white px-8 py-4 text-xl font-bold transition hover:bg-white hover:text-stone-900 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Se träningsprogrammen
               </a>
@@ -155,10 +159,10 @@ function submitInterest() {
       </section>
 
       <!-- About the app -->
-      <section id="appen" class="scroll-mt-24 bg-white py-16">
+      <section id="appen" class="scroll-mt-24 py-16">
         <div class="mx-auto max-w-6xl px-5">
           <h2 class="text-3xl font-extrabold md:text-4xl">Det här är Senior Vitality</h2>
-          <p class="mt-4 max-w-2xl text-xl leading-relaxed">
+          <p class="mt-4 max-w-2xl text-xl leading-relaxed text-stone-800">
             En träningsapp för seniorer, med program som du gör hemma och som är anpassade efter
             dig. Du får tydliga instruktioner och en tränare som finns med hela vägen.
           </p>
@@ -167,11 +171,10 @@ function submitInterest() {
             <article
                 v-for="feature in features"
                 :key="feature.title"
-                class="rounded-3xl bg-[#EEF4EA] p-7"
+                class="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-stone-900/5"
             >
-              <div class="text-4xl" aria-hidden="true">{{ feature.icon }}</div>
-              <h3 class="mt-4 text-2xl font-bold">{{ feature.title }}</h3>
-              <p class="mt-2 text-lg leading-relaxed">{{ feature.text }}</p>
+              <h3 class="text-2xl font-bold">{{ feature.title }}</h3>
+              <p class="mt-2 text-lg leading-relaxed text-stone-800">{{ feature.text }}</p>
             </article>
           </div>
         </div>
@@ -180,7 +183,7 @@ function submitInterest() {
       <!-- Training programs -->
       <section id="program" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
         <h2 class="text-3xl font-extrabold md:text-4xl">Träningsprogram</h2>
-        <p class="mt-4 max-w-2xl text-xl leading-relaxed">
+        <p class="mt-4 max-w-2xl text-xl leading-relaxed text-stone-800">
           Tre program som tillsammans gör vardagen enklare och håller dig självständig.
         </p>
 
@@ -188,14 +191,14 @@ function submitInterest() {
           <article
               v-for="program in programs"
               :key="program.name"
-              class="overflow-hidden rounded-3xl border border-[#D5E3CF] bg-white"
+              class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-stone-900/5"
           >
             <img :src="program.img" :alt="program.name" class="h-52 w-full object-cover" />
             <div class="p-6">
               <h3 class="text-2xl font-bold">{{ program.name }}</h3>
-              <p class="mt-2 text-lg leading-relaxed">{{ program.text }}</p>
-              <p class="mt-4 text-base font-bold">Exempel på övningar:</p>
-              <ul class="mt-1 list-disc pl-6 text-lg leading-relaxed">
+              <p class="mt-2 text-lg leading-relaxed text-stone-800">{{ program.text }}</p>
+              <p class="mt-4 text-base font-bold text-stone-500">Exempel på övningar:</p>
+              <ul class="mt-1 list-disc pl-6 text-lg leading-relaxed text-stone-800">
                 <li v-for="example in program.examples" :key="example">{{ example }}</li>
               </ul>
             </div>
@@ -204,7 +207,7 @@ function submitInterest() {
       </section>
 
       <!-- About me -->
-      <section id="om-mig" class="scroll-mt-24 bg-white py-16">
+      <section id="om-mig" class="scroll-mt-24 py-16">
         <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
           <img
               src="@/assets/images/me.jpg"
@@ -213,11 +216,11 @@ function submitInterest() {
           />
           <div>
             <h2 class="text-3xl font-extrabold md:text-4xl">Om mig</h2>
-            <p class="mt-4 text-xl leading-relaxed">
+            <p class="mt-4 text-xl leading-relaxed text-stone-800">
               Hej! Jag är fysioterapeut och arbetar med seniorer. Jag har sett hur mycket några
               korta pass i veckan kan betyda för styrka, balans och självständighet.
             </p>
-            <p class="mt-4 text-xl leading-relaxed">
+            <p class="mt-4 text-xl leading-relaxed text-stone-800">
               Med Senior Vitality kan jag vara med dig hemma som din personliga tränare. Du får
               program som passar just dig, tydliga instruktioner och någon som lyssnar. Börja där
               du är och gå framåt i din egen takt.
@@ -229,7 +232,7 @@ function submitInterest() {
       <!-- Results -->
       <section id="resultat" class="scroll-mt-24 mx-auto max-w-6xl px-5 py-16">
         <h2 class="text-3xl font-extrabold md:text-4xl">Lars resa</h2>
-        <p class="mt-4 max-w-2xl text-xl leading-relaxed">
+        <p class="mt-4 max-w-2xl text-xl leading-relaxed text-stone-800">
           Lars, 79, tränade hemma i 12 veckor. Så här förändrades hans gång.
         </p>
 
@@ -237,25 +240,25 @@ function submitInterest() {
           <li
               v-for="step in journey"
               :key="step.stage"
-              class="overflow-hidden rounded-3xl border border-[#D5E3CF] bg-white"
+              class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-stone-900/5"
           >
             <img :src="step.img" :alt="step.title" class="aspect-square w-full object-cover" />
             <div class="p-6">
-              <p class="inline-block rounded-full bg-[#FCE3B4] px-4 py-1 text-base font-bold">
+              <p class="inline-block rounded-full bg-orange-100 px-4 py-1 text-base font-bold text-orange-900">
                 {{ step.stage }}
               </p>
               <h3 class="mt-3 text-2xl font-bold">{{ step.title }}</h3>
-              <p class="mt-2 text-lg leading-relaxed">{{ step.text }}</p>
+              <p class="mt-2 text-lg leading-relaxed text-stone-800">{{ step.text }}</p>
             </div>
           </li>
         </ol>
       </section>
 
       <!-- Register interest -->
-      <section id="intresse" class="scroll-mt-24 bg-[#1F3A2E] py-16 text-white">
+      <section id="intresse" class="scroll-mt-24 py-16">
         <div class="mx-auto max-w-2xl px-5">
           <h2 class="text-3xl font-extrabold md:text-4xl">Anmäl ditt intresse</h2>
-          <p class="mt-4 text-xl leading-relaxed">
+          <p class="mt-4 text-xl leading-relaxed text-stone-800">
             Appen lanseras snart. Lämna ditt namn och din e-postadress, så hör vi av oss så fort
             den öppnar. Du förbinder dig inte till något.
           </p>
@@ -269,7 +272,7 @@ function submitInterest() {
                   type="text"
                   autocomplete="name"
                   required
-                  class="mt-2 w-full rounded-2xl border-2 border-transparent bg-white px-5 py-4 text-xl text-[#1F3A2E] focus:border-[#F2A93B] focus:outline-none"
+                  class="mt-2 w-full rounded-2xl border-2 border-stone-300 bg-white px-5 py-4 text-xl text-stone-900 focus:border-orange-600 focus:outline-none"
               />
             </div>
             <div>
@@ -280,21 +283,23 @@ function submitInterest() {
                   type="email"
                   autocomplete="email"
                   required
-                  class="mt-2 w-full rounded-2xl border-2 border-transparent bg-white px-5 py-4 text-xl text-[#1F3A2E] focus:border-[#F2A93B] focus:outline-none"
+                  class="mt-2 w-full rounded-2xl border-2 border-stone-300 bg-white px-5 py-4 text-xl text-stone-900 focus:border-orange-600 focus:outline-none"
               />
             </div>
             <button
                 type="submit"
-                class="cursor-pointer rounded-full bg-[#F2A93B] px-10 py-4 text-xl font-bold text-[#1F3A2E] transition hover:bg-[#E59A24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+                class="cursor-pointer rounded-full bg-orange-600 px-10 py-4 text-xl font-bold text-white shadow-lg shadow-orange-600/40 transition hover:bg-orange-500 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
             >
               Anmäl mitt intresse
             </button>
-            <p class="text-base">Vi använder bara din e-postadress för att höra av oss om lanseringen.</p>
+            <p class="text-base text-stone-800">
+              Vi använder bara din e-postadress för att höra av oss om lanseringen.
+            </p>
           </form>
 
           <p
               v-else
-              class="mt-8 rounded-3xl bg-white p-6 text-xl font-semibold text-[#1F3A2E]"
+              class="mt-8 rounded-3xl bg-white p-6 text-xl font-semibold text-stone-900 shadow-sm ring-1 ring-stone-900/5"
               role="status"
           >
             Tack, {{ name }}! Vi hör av oss när appen lanseras.
@@ -303,11 +308,31 @@ function submitInterest() {
       </section>
     </main>
 
-    <footer class="bg-[#16291F] py-8 text-center text-lg text-white">
-      <p>© 2026 Senior Vitality. Det här är en prototyp.</p>
+    <footer class="bg-stone-900 py-10 text-center text-lg text-white">
+      <h2 class="text-2xl font-bold">Kontakt</h2>
+      <p class="mt-3">
+        Mejl:
+        <a
+            :href="`mailto:${contact.email}`"
+            class="font-semibold underline underline-offset-4 hover:text-orange-300"
+        >
+          {{ contact.email }}
+        </a>
+      </p>
+      <p class="mt-1">
+        Telefon:
+        <a
+            :href="`tel:${contact.phoneLink}`"
+            class="font-semibold underline underline-offset-4 hover:text-orange-300"
+        >
+          {{ contact.phone }}
+        </a>
+      </p>
+
+      <p class="mt-8">© 2026 Senior Vitality.</p>
       <button
           @click="openLoginPage"
-          class="mt-3 cursor-pointer text-lg underline underline-offset-4 hover:text-[#F2A93B]"
+          class="mt-3 cursor-pointer text-lg underline underline-offset-4 hover:text-orange-300"
       >
         Logga in
       </button>
@@ -328,16 +353,6 @@ html {
 .landing {
   font-family: 'Nunito', system-ui, sans-serif;
   font-size: 18px;
-}
-
-/* Darkens the left side of the hero photo so the white text stays readable */
-.hero-overlay {
-  background: linear-gradient(
-      90deg,
-      rgba(31, 58, 46, 0.92) 0%,
-      rgba(31, 58, 46, 0.75) 45%,
-      rgba(31, 58, 46, 0.25) 100%
-  );
 }
 
 @media (prefers-reduced-motion: reduce) {
