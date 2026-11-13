@@ -37,12 +37,25 @@ const handleRegister = async () => {
   }
   console.log(auth.user)
 }
+
+// GUEST: remove this function
+const handleGuestLogin = async () => {
+  try {
+    const { error } = await auth.signInGuest()
+    if (error) {
+      alert('Gästinloggning misslyckades: ' + error.message)
+      return
+    }
+    router.push('/app/home')
+  } catch (error) {
+    alert(error.message)
+  }
+}
 </script>
 
 <template>
   <div class="w-full max-w-xs m-auto">
     <form @submit.prevent class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      >>>>>>> b38e4ee5f003846ed778a3e3d5bc8d1e0b4301b4
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
         <input
@@ -54,7 +67,7 @@ const handleRegister = async () => {
         />
       </div>
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="Lösenord"> Lösenord </label>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Lösenord </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           :class="{ 'border-red-400': form.password.length < 8 }"
@@ -89,6 +102,15 @@ const handleRegister = async () => {
           Sign Up
         </button>
       </div>
+
+      <!-- GUEST: remove this button -->
+      <button
+        class="mt-4 w-full border border-gray-400 text-gray-700 py-2 rounded hover:bg-gray-100"
+        type="button"
+        @click="handleGuestLogin"
+      >
+        Fortsätt som gäst
+      </button>
     </form>
   </div>
 </template>

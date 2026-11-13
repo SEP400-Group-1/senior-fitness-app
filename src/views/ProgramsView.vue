@@ -10,9 +10,9 @@ const fetchPrograms = async () => {
   const { data, error: fetchError } = await supabase.from('program_william').select()
   fetchReady.value = true
   if (fetchError) {
-    alert(fetchError.value)
+    alert(fetchError.message)
   }
-  fetchedData.value = data
+  fetchedData.value = data ?? []
 }
 
 onMounted(async () => {
@@ -20,6 +20,7 @@ onMounted(async () => {
   console.log(fetchedData.value)
 })
 </script>
+
 <template>
   <div class="home-view w-full">
     <div
@@ -30,5 +31,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
