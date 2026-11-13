@@ -1,7 +1,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchCourse } from '@/lib/courses'
+import { fetchCourse } from '@/lib/Courses.js'
 import { renderContent, toEmbedUrl } from '@/lib/courseUtils'
 
 import TrainingWorkoutAmountPill from '@/components/TrainingWorkoutAmountPill.vue'
