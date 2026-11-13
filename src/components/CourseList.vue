@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { fetchCourses } from '@/lib/courses'
+import { fetchCourses } from '@/lib/Courses.js'
 import CourseCard from './CourseCard.vue'
 
 const props = defineProps({
